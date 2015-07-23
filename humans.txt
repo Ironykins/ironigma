@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Konrad Aust -- Evernything -- konrad.aust@gmail.com
+
+# THANKS
+
+    Mark Bauer, for teaching me about Cryptography
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Apache Server Configs, jQuery, Modernizr, Normalize.css
+
