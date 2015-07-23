@@ -8,12 +8,13 @@
 // The Machine itself
 var eMachine = {
     /* Initial single-alphabet substitution cipher. 
-     * TODO: Model this more like the actual plugboard with steckered pairs. */
-    plugBoard : "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 
+     * An array of 2-item arrays. eg. ['B','Y'] indicates that B and Y are 
+     * connected via a plug.*/
+    plugBoard : [],
 
     /* Rotors are listed right-to-left here. */
     rotors : [ rotorIV, rotorIII, rotorII, rotorI],
-    rotorPositions: [ 'A', 'A', 'A', 'A' ],
+    rotorPositions: [ 0, 0, 0, 0 ],
 }
 
 /* Rotors keep track of:
@@ -24,21 +25,21 @@ var eMachine = {
  */
 var rotorIV = {
     mapping : "ESOVPZJAYQUIRHXLNFTGKDCMWB",
-    turnover: 'J',
+    turnover: 9,
 }
 
 var rotorIII = {
     mapping : "BDFHJLCPRTXVZNYEIWGAKMUSQO",
-    turnover: 'V',
+    turnover: 21,
 }
 
 var rotorII = {
     mapping : "AJDKSIRUXBLHWTMCQGZNPYFVOE",
-    turnover: 'E',
+    turnover: 4,
 }
 
 var rotorI = {
     mapping : "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
-    turnover: 'Q',
+    turnover: 16,
 }
 
