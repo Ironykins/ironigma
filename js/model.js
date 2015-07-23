@@ -17,6 +17,16 @@ var eMachine = {
     rotorPositions: [ 0, 0, 0, 0 ],
 }
 
+//Performs a rotor substitution.
+//character = The input character
+//rotor = The rotor doing the substitution
+//returns the character post-substitution
+function subRotor(character,rotor)
+{
+    var charIndex = character.charCodeAt() - 65;
+    return String.fromCharCode(rotor.mapping.charCodeAt(charIndex));
+}
+
 /* Rotors keep track of:
  * mapping: The substitution alphabet of the rotor
  * turnover: The position of the turnover notch 
