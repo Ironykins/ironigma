@@ -5,26 +5,46 @@
  * That is, everything that represents working parts and internal state.
  */
 
-// The Machine itself
-var eMachine = {
-    /* Initial single-alphabet substitution cipher. 
-     * An array of 2-item arrays. eg. ['B','Y'] indicates that B and Y are 
-     * connected via a plug.*/
-    plugBoard : [],
+/* Represents an Enigma Machine.
+ * The rotors are listed in right-to-left order.
+ * The plugboard is an array of 2-item arrays. 
+ * Eg. ['B','Y'] in the plugboard array indicates that B and Y are 
+ * connected via a plug */
+function Enigma(rotors, plugboard) {
+    this.rotors = rotors;
+    this.plugboard = plugboard;
+}
+Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuration is valid
+{
+    var totalArray = []; //Add letters to this.
+    if(this.plugboard.length > 13) return false;
+    for(x=0;x<this.plugboard.length;x++) {
+        if(this.plugboard[x].length != 2) 
+            return false;
+        //if(totalArray.indexOf(this.plugboard[x][0]) > -1 || totalArray.indexOf(this.plugboard[x][1] > -1))
+        if(totalArray.indexOf(this.plugboard[x][0]) > -1)
+            return false;
 
-    /* Rotors are listed right-to-left here. */
-    rotors : [ rotorIV, rotorIII, rotorII, rotorI],
-    rotorPositions: [ 0, 0, 0, 0 ],
+        totalArray.push(this.plugboard[x][0]);
+
+        if(totalArray.indexOf(this.plugboard[x][1]) > -1)
+            return false;
+
+        totalArray.push(this.plugboard[x][1]);
+    }
+    return true;
 }
 
-//Performs a rotor substitution.
-//character = The input character
-//rotor = The rotor doing the substitution
-//returns the character post-substitution
-function subRotor(character,rotor)
-{
-    var charIndex = character.charCodeAt() - 65;
-    return String.fromCharCode(rotor.mapping.charCodeAt(charIndex));
+/* Working Engima machine default. */
+M4.prototype = new Enigma();
+M4.prototype.constructor = M4;
+function M4() {
+    var rIV = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", 9);
+    var rIII = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
+    var rII = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
+    var rI = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
+    this.rotors = [rIV, rIII, rII, rI];
+    this.plugboard = [];
 }
 
 /* Rotors keep track of:
@@ -33,23 +53,23 @@ function subRotor(character,rotor)
  *           (If the rotor steps away from the letter with 
  *           the turnover notch, the next rotor is advanced)
  */
-var rotorIV = {
-    mapping : "ESOVPZJAYQUIRHXLNFTGKDCMWB",
-    turnover: 9,
+function Rotor(mapping, turnover) {
+    this.mapping = mapping;
+    this.turnover = turnover;
+    this.position = 0;
 }
-
-var rotorIII = {
-    mapping : "BDFHJLCPRTXVZNYEIWGAKMUSQO",
-    turnover: 21,
+//Performs a single character substitution
+Rotor.prototype.sub = function(character) {
+    var charIndex = character.charCodeAt() - 65;
+    charIndex = (charIndex + this.position) % 26; //The rotation of the rotor affects incoming letters.
+    return String.fromCharCode(this.mapping.charCodeAt(charIndex));
 }
-
-var rotorII = {
-    mapping : "AJDKSIRUXBLHWTMCQGZNPYFVOE",
-    turnover: 4,
+//Advances the rotor. Returns the new position.
+Rotor.prototype.step = function() { 
+    this.position = (this.position + 1) % 26;
+    return this.position;
 }
-
-var rotorI = {
-    mapping : "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
-    turnover: 16,
+//True if the next step will cause the rotor to step the next one forwards.
+Rotor.prototype.willTurnoverOnStep = function() {
+    return (this.position == this.turnover);
 }
-
