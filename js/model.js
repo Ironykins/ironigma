@@ -9,9 +9,11 @@
  * The rotors are listed in right-to-left order.
  * The plugboard is an array of 2-item arrays. 
  * Eg. ['B','Y'] in the plugboard array indicates that B and Y are 
- * connected via a plug */
-function Enigma(rotors, plugboard) {
+ * connected via a plug 
+ * The reflector is represented as a single substitution alphabet.*/
+function Enigma(rotors, reflector, plugboard) {
     this.rotors = rotors;
+    this.reflector = reflector;
     this.plugboard = plugboard;
 }
 Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuration is valid
@@ -34,6 +36,14 @@ Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuratio
     }
     return true;
 }
+Enigma.prototype.step = function() { //Steps the rightmost rotor. If this triggers another step, perform it. And so on.
+    for(x=0;x<this.rotors.length;x++) {
+        var cont = this.rotors[x].willTurnoverOnStep();
+        this.rotors[x].step();
+        if(!cont) return;
+    }
+}
+
 
 /* Working Engima machine default. */
 M4.prototype = new Enigma();
@@ -45,6 +55,7 @@ function M4() {
     var rI = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
     this.rotors = [rIV, rIII, rII, rI];
     this.plugboard = [];
+    this.reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; //Reflector B
 }
 
 /* Rotors keep track of:
@@ -76,4 +87,3 @@ Rotor.prototype.willTurnoverOnStep = function() {
 Rotor.prototype.displayChar = function() {
     return String.fromCharCode(this.position + 65);
 }
-

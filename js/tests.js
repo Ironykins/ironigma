@@ -19,6 +19,17 @@ QUnit.test("Plugboard validation", function( assert ) {
     this.enigma.plugboard = [ ['A','B'], ['C','A']];
     assert.notOk(this.enigma.checkPlugboard());
 });
+QUnit.test("Properly performs rotor turnover.", function( assert ) {
+    this.enigma.rotors[0].position = 9;
+    this.enigma.rotors[1].position = 21;
+    this.enigma.rotors[2].position = 17;
+    this.enigma.rotors[3].position = 0;
+    this.enigma.step();
+    assert.equal(this.enigma.rotors[0].position, 10);
+    assert.equal(this.enigma.rotors[1].position, 22);
+    assert.equal(this.enigma.rotors[2].position, 18);
+    assert.equal(this.enigma.rotors[3].position, 0);
+});
 
 /*
  * Rotor Tests!
