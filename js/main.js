@@ -3,8 +3,7 @@
 angular.module('ironigma', [])
 .controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M4();
-    $scope.a = 1;
-    $scope.b = 2;
+    $scope.enigma.rotors[0].step();
 }])
 
 

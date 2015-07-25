@@ -56,3 +56,10 @@ QUnit.test( "Rotor steps properly", function( assert ) {
     this.rotor.step();
     assert.ok(this.rotor.willTurnoverOnStep());
 });
+
+QUnit.test( "Rotor shows the correct character", function( assert ) {
+    this.rotor.position = 0;
+    assert.equal(this.rotor.displayChar(),'A');
+    this.rotor.position = 15;
+    assert.equal(this.rotor.displayChar(),'P');
+});

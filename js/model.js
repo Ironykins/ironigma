@@ -73,3 +73,7 @@ Rotor.prototype.step = function() {
 Rotor.prototype.willTurnoverOnStep = function() {
     return (this.position == this.turnover);
 }
+Rotor.prototype.displayChar = function() {
+    return String.fromCharCode(this.position + 65);
+}
+

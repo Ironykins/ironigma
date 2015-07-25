@@ -27,6 +27,20 @@
         <div ng-app="ironigma">
             <div ng-controller="enigma">
                 <p>Machine State: {{ enigma }}</p>
+                <table >
+                    <tr>
+                        <td> Rotor I </td>
+                        <td> Rotor II </td>
+                        <td> Rotor III </td>
+                        <td> Rotor IV </td>
+                    </tr>
+                    <tr>
+                        <td> {{ enigma.rotors[0].displayChar() }} </td>
+                        <td> {{ enigma.rotors[1].displayChar() }} </td>
+                        <td> {{ enigma.rotors[2].displayChar() }} </td>
+                        <td> {{ enigma.rotors[3].displayChar() }} </td>
+                    </tr>
+                </table>
             </div>
             
         </div>
