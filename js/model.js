@@ -56,7 +56,13 @@ Enigma.prototype.plugboardTransform = function(character) {
 Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps the rotors.
     var workingChar = this.plugboardTransform(character);
 
-    //TODO: Working logic with rotors and such here.
+    for (var x=0;x<this.rotors.length;x++)
+        workingChar = this.rotors[x].sub(workingChar);
+
+    workingChar = substitute(workingChar, this.reflector);
+
+    for (var x=this.rotors.length-1;x>=0;x--)
+        workingChar = this.rotors[x].sub(workingChar);
 
     this.step();
     return this.plugboardTransform(workingChar);

@@ -7,10 +7,9 @@ QUnit.module("Enigma Tests", {
         var rIII = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
         var rII = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
         var rI = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
-        this.enigma = new Enigma([rIV,rIII,rII,rI], []);
+        this.enigma = new Enigma([rIV,rIII,rII,rI],"YRUHQSLDPXNGOKMIEBFZCWVJAT", []);
     },});
 QUnit.test("Plugboard validation", function( assert ) {
-    this.enigma.plugboard = [];
     assert.ok(this.enigma.checkPlugboard());
     this.enigma.plugboard = [ ['A','A'] ];
     assert.notOk(this.enigma.checkPlugboard());
@@ -32,8 +31,10 @@ QUnit.test("Properly performs rotor turnover.", function( assert ) {
     assert.equal(this.enigma.rotors[2].position, 18);
     assert.equal(this.enigma.rotors[3].position, 0);
 });
-QUnit.skip("Steps forward after character encryption", function( assert ) {
-
+QUnit.test("Steps forward after character encryption", function( assert ) {
+    this.enigma.rotors[0].position = 9;
+    var encryption1 = this.enigma.encrypt('A');
+    assert.equal(this.enigma.rotors[0].position, 10);
 });
 QUnit.skip("Encrypts a single character correctly.", function( assert ) {
 
@@ -53,7 +54,6 @@ QUnit.test("Reset resets the machine.", function( assert) {
 
 });
 QUnit.test("Encryption is its own inverse", function( assert ) {
-    this.enigma.plugboard = [];
     var encryption1 = this.enigma.encrypt('A');
     var encryption2 = this.enigma.encrypt('B');
     this.enigma.reset();
@@ -63,7 +63,6 @@ QUnit.test("Encryption is its own inverse", function( assert ) {
     assert.equal(encryption2, decryption2);
 });
 QUnit.test("Plugboard substitutes characters correctly.", function( assert ) {
-    this.enigma.plugboard = [];
     assert.equal(this.enigma.plugboardTransform('A'),'A');
     this.enigma.plugboard = [ ['A','B'], ['D','E'] ];
     assert.equal(this.enigma.plugboardTransform('A'),'B');
@@ -73,7 +72,6 @@ QUnit.test("Plugboard substitutes characters correctly.", function( assert ) {
     assert.equal(this.enigma.plugboardTransform('D'),'E');
 });
 QUnit.skip("Plugboard settings affect encryption.", function( assert ) {
-    this.enigma.plugboard = [];
     var normalEncryption = this.enigma.encrypt('A');
     this.enigma.plugboard = [ ['A','B'] ];
     var plugboardEncryption = this.enigma.encrypt('A');
