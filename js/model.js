@@ -20,10 +20,10 @@ Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuratio
 {
     var totalArray = []; //Add letters to this.
     if(this.plugboard.length > 13) return false;
-    for(x=0;x<this.plugboard.length;x++) {
+    for(var x=0;x<this.plugboard.length;x++) {
         if(this.plugboard[x].length != 2) 
             return false;
-        //if(totalArray.indexOf(this.plugboard[x][0]) > -1 || totalArray.indexOf(this.plugboard[x][1] > -1))
+
         if(totalArray.indexOf(this.plugboard[x][0]) > -1)
             return false;
 
@@ -37,13 +37,42 @@ Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuratio
     return true;
 }
 Enigma.prototype.step = function() { //Steps the rightmost rotor. If this triggers another step, perform it. And so on.
-    for(x=0;x<this.rotors.length;x++) {
+    for(var x=0;x<this.rotors.length;x++) {
         var cont = this.rotors[x].willTurnoverOnStep();
         this.rotors[x].step();
         if(!cont) return;
     }
 }
+Enigma.prototype.plugboardTransform = function(character) {
+    for(var x=0;x<this.plugboard.length;x++) {
+        if(this.plugboard[x][0] == character)
+            return this.plugboard[x][1];
+        else if(this.plugboard[x][1] == character)
+            return this.plugboard[x][0];
+    }
 
+    return character;
+}
+Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps the rotors.
+    var workingChar = this.plugboardTransform(character);
+
+    //TODO: Working logic with rotors and such here.
+
+    this.step();
+    return this.plugboardTransform(workingChar);
+}
+Enigma.prototype.reset = function() { //Resets the machine.
+    this.plugboard = [];
+    for(var x=0;x<this.rotors.length;x++) {
+        this.rotors[x].position = 0;
+    }
+}
+
+//General function to substitue a character using a given mapping.
+function substitute(character, mapping) { 
+    var charIndex = character.charCodeAt() - 65;
+    return String.fromCharCode(mapping.charCodeAt(charIndex));
+}
 
 /* Working Engima machine default. */
 M4.prototype = new Enigma();
@@ -69,7 +98,7 @@ function Rotor(mapping, turnover) {
     this.turnover = turnover;
     this.position = 0;
 }
-//Performs a single character substitution
+//Performs a single character substitution. 
 Rotor.prototype.sub = function(character) {
     var charIndex = character.charCodeAt() - 65;
     charIndex = (charIndex + this.position) % 26; //The rotation of the rotor affects incoming letters.
