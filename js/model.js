@@ -55,6 +55,7 @@ Enigma.prototype.plugboardTransform = function(character) {
 }
 Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps the rotors.
     var workingChar = this.plugboardTransform(character);
+    this.step(); //You have to step BEFORE encrypting.
 
     for (var x=0;x<this.rotors.length;x++)
         workingChar = this.rotors[x].sub(workingChar);
@@ -62,9 +63,8 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     workingChar = substitute(workingChar, this.reflector);
 
     for (var x=this.rotors.length-1;x>=0;x--)
-        workingChar = this.rotors[x].sub(workingChar);
+        workingChar = this.rotors[x].backsub(workingChar);
 
-    this.step();
     return this.plugboardTransform(workingChar);
 }
 Enigma.prototype.reset = function() { //Resets the machine.
@@ -81,14 +81,13 @@ function substitute(character, mapping) {
 }
 
 /* Working Engima machine default. */
-M4.prototype = new Enigma();
-M4.prototype.constructor = M4;
-function M4() {
-    var rIV = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", 9);
+M3.prototype = new Enigma();
+M3.prototype.constructor = M3;
+function M3() {
     var rIII = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
-    var rII = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
-    var rI = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
-    this.rotors = [rIV, rIII, rII, rI];
+    var rII  = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
+    var rI   = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
+    this.rotors = [rIII, rII, rI];
     this.plugboard = [];
     this.reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; //Reflector B
 }
@@ -104,11 +103,18 @@ function Rotor(mapping, turnover) {
     this.turnover = turnover;
     this.position = 0;
 }
-//Performs a single character substitution. 
+//Performs a single character substitution, from the forward side of the rotor.
 Rotor.prototype.sub = function(character) {
     var charIndex = character.charCodeAt() - 65;
     charIndex = (charIndex + this.position) % 26; //The rotation of the rotor affects incoming letters.
     return String.fromCharCode(this.mapping.charCodeAt(charIndex));
+}
+//Performs a single character substitution, from the back side of the rotor.
+Rotor.prototype.backsub = function(character) {
+    var charIndex = (this.mapping.indexOf(character) - this.position) % 26;
+    if(charIndex < 0)
+        charIndex += 26;
+    return String.fromCharCode(charIndex + 65);
 }
 //Advances the rotor. Returns the new position.
 Rotor.prototype.step = function() { 
