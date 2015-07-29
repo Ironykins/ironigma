@@ -57,9 +57,10 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     var workingChar = this.plugboardTransform(character);
     this.step(); //You have to step BEFORE encrypting.
 
-    for (var x=0;x<this.rotors.length;x++)
+    for (var x=0;x<this.rotors.length;x++) {
         workingChar = this.rotors[x].sub(workingChar);
-
+    }
+    
     workingChar = substitute(workingChar, this.reflector);
 
     for (var x=this.rotors.length-1;x>=0;x--)
@@ -77,7 +78,13 @@ Enigma.prototype.reset = function() { //Resets the machine.
 //General function to substitue a character using a given mapping.
 function substitute(character, mapping) { 
     var charIndex = character.charCodeAt() - 65;
-    return String.fromCharCode(mapping.charCodeAt(charIndex));
+    return mapping[charIndex];
+}
+
+function shiftChar(character, steps) {
+    var charIndex = (character.charCodeAt() - 65 + steps) % 26;
+    if(charIndex < 0) charIndex += 26;
+    return String.fromCharCode(charIndex + 65);
 }
 
 /* Working Engima machine default. */
@@ -107,14 +114,15 @@ function Rotor(mapping, turnover) {
 Rotor.prototype.sub = function(character) {
     var charIndex = character.charCodeAt() - 65;
     charIndex = (charIndex + this.position) % 26; //The rotation of the rotor affects incoming letters.
-    return String.fromCharCode(this.mapping.charCodeAt(charIndex));
+    var returnChar = String.fromCharCode(this.mapping.charCodeAt(charIndex));
+    return shiftChar(returnChar, -this.position);
 }
 //Performs a single character substitution, from the back side of the rotor.
 Rotor.prototype.backsub = function(character) {
-    var charIndex = (this.mapping.indexOf(character) - this.position) % 26;
-    if(charIndex < 0)
-        charIndex += 26;
-    return String.fromCharCode(charIndex + 65);
+    var newChar = shiftChar(character, this.position)
+    var charIndex = this.mapping.indexOf(newChar);
+    var returnChar = String.fromCharCode(charIndex + 65);
+    return shiftChar(returnChar, -this.position);
 }
 //Advances the rotor. Returns the new position.
 Rotor.prototype.step = function() { 

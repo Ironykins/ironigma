@@ -33,9 +33,13 @@ QUnit.test("Steps forward after character encryption", function( assert ) {
     var encryption1 = this.enigma.encrypt('A');
     assert.equal(this.enigma.rotors[0].position, 10);
 });
-QUnit.skip("Encrypts a single character correctly.", function( assert ) {
+QUnit.test("Encrypts a single character correctly.", function( assert ) {
     var encryption1 = this.enigma.encrypt('A');
+    var encryption2 = this.enigma.encrypt('B');
+    var encryption3 = this.enigma.encrypt('C');
     assert.equal(encryption1,'B');
+    assert.equal(encryption2,'J');
+    assert.equal(encryption3,'E');
 
 });
 QUnit.test("Reset resets the machine.", function( assert) {
@@ -95,18 +99,18 @@ QUnit.test( "Single Rotor back substitution without stepping.", function( assert
 QUnit.test( "Single Rotor Substitution with stepping", function( assert ) {
     assert.equal(this.rotor.sub('A'),'E');
     this.rotor.step();
-    assert.equal(this.rotor.sub('A'),'K');
+    assert.equal(this.rotor.sub('A'),'J');
     this.rotor.position = 25;
-    assert.equal(this.rotor.sub('Z'),'C'); 
+    assert.equal(this.rotor.sub('Z'),'D'); 
     this.rotor.step();
     assert.equal(this.rotor.sub('Z'),'J');
 });
 QUnit.test( "Single Rotor Back Substitution with stepping", function( assert ) {
     assert.equal(this.rotor.backsub('E'),'A');
     this.rotor.step();
-    assert.equal(this.rotor.backsub('K'),'A');
+    assert.equal(this.rotor.backsub('K'),'D');
     this.rotor.position = 25;
-    assert.equal(this.rotor.backsub('C'),'Z'); 
+    assert.equal(this.rotor.backsub('C'),'X'); 
     this.rotor.step();
     assert.equal(this.rotor.backsub('J'),'Z');
 });
@@ -116,17 +120,23 @@ QUnit.test( "Rotor advances correctly", function( assert ) {
     assert.equal(this.rotor.step(),0);
     assert.equal(this.rotor.step(),1); 
 });
-
 QUnit.test( "Rotor steps properly", function( assert ) {
     this.rotor.position = 15;
     assert.notOk(this.rotor.willTurnoverOnStep());
     this.rotor.step();
     assert.ok(this.rotor.willTurnoverOnStep());
 });
-
 QUnit.test( "Rotor shows the correct character", function( assert ) {
     this.rotor.position = 0;
     assert.equal(this.rotor.displayChar(),'A');
     this.rotor.position = 15;
     assert.equal(this.rotor.displayChar(),'P');
+});
+QUnit.test( "Sub and BackSub are inverses.", function( assert ) {
+    this.rotor.position = 0;
+    assert.equal(this.rotor.sub(this.rotor.backsub('A')),'A');
+    assert.equal(this.rotor.backsub(this.rotor.sub('A')),'A');
+    this.rotor.position = 1;
+    assert.equal(this.rotor.sub(this.rotor.backsub('A')),'A');
+    assert.equal(this.rotor.backsub(this.rotor.sub('A')),'A');
 });
