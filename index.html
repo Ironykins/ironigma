@@ -29,16 +29,17 @@
                 <p>Machine State: {{ enigma }}</p>
                 <table >
                     <tr>
-                        <td> Rotor III </td>
-                        <td> Rotor II </td>
                         <td> Rotor I </td>
+                        <td> Rotor II </td>
+                        <td> Rotor III </td>
                     </tr>
                     <tr>
-                        <td> {{ enigma.rotors[0].displayChar() }} </td>
-                        <td> {{ enigma.rotors[1].displayChar() }} </td>
                         <td> {{ enigma.rotors[2].displayChar() }} </td>
+                        <td> {{ enigma.rotors[1].displayChar() }} </td>
+                        <td> {{ enigma.rotors[0].displayChar() }} </td>
                     </tr>
                 </table>
+                <button ng-click="step()">Step Rotors</button>
             </div>
             
         </div>
