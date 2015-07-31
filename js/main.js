@@ -6,7 +6,10 @@ angular.module('ironigma', [])
     $scope.ciphertext = "";
 
     $scope.step = function() { $scope.enigma.step() }
-    $scope.reset = function() { $scope.enigma.reset() }
+    $scope.reset = function() { 
+        $scope.enigma.reset() 
+        $scope.ciphertext = ""
+    }
 
     $scope.charEncrypt = function() { 
         $scope.ciphertext += $scope.enigma.encrypt($scope.input);
