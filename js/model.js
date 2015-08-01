@@ -54,7 +54,9 @@ Enigma.prototype.plugboardTransform = function(character) {
     return character;
 }
 Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps the rotors.
-    var workingChar = this.plugboardTransform(character);
+    var workingChar = this.validate(character);
+    if(workingChar == "") {return ""} //If it's invalid, do nothing.
+    workingChar = this.plugboardTransform(workingChar);
     this.step(); //You have to step BEFORE encrypting.
 
     for (var x=0;x<this.rotors.length;x++) {
@@ -73,6 +75,12 @@ Enigma.prototype.reset = function() { //Resets the machine.
     for(var x=0;x<this.rotors.length;x++) {
         this.rotors[x].position = 0;
     }
+}
+Enigma.prototype.validate = function(character) { //Returns a sane character input from any character. Or an empty string.
+    var charCode = character.charCodeAt();
+    if(charCode >= 97) {charCode -= 32}
+    if(charCode < 65 || charCode > 90) {return ""}
+    return String.fromCharCode(charCode)
 }
 
 //General function to substitue a character using a given mapping.
