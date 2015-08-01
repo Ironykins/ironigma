@@ -78,6 +78,21 @@ QUnit.test("Plugboard settings affect encryption.", function( assert ) {
     var plugboardEncryption = this.enigma.encrypt('A');
     assert.notEqual(normalEncryption, plugboardEncryption);
 });
+QUnit.test("Lowercase characters encrypted the same as uppercase.", function( assert ) {
+    var upperEncrypt = this.enigma.encrypt('A');
+    this.enigma.reset()
+    var lowerEncrypt = this.enigma.encrypt('a');
+    assert.equal(upperEncrypt, lowerEncrypt);
+});
+QUnit.test("Non-letter characters are ignored.", function( assert ) {
+    var enc1 = this.enigma.encrypt('.');
+    var enc2 = this.enigma.encrypt('/');
+    var enc3 = this.enigma.encrypt('6');
+    assert.equal(enc1, "");
+    assert.equal(enc2, "");
+    assert.equal(enc3, "");
+    assert.equal(this.enigma.rotors[0].position,0);
+});
 
 /*
  * Rotor Tests!
