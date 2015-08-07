@@ -64,7 +64,7 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     }
     
     workingChar = substitute(workingChar, this.reflector);
-
+    
     for (var x=this.rotors.length-1;x>=0;x--)
         workingChar = this.rotors[x].backsub(workingChar);
 
@@ -112,25 +112,28 @@ function M3() {
  * turnover: The position of the turnover notch 
  *           (If the rotor steps away from the letter with 
  *           the turnover notch, the next rotor is advanced)
+ * position: The current rotation of the ring
+ * ringsetting: The current ringsetting
  */
 function Rotor(mapping, turnover) {
     this.mapping = mapping;
     this.turnover = turnover;
     this.position = 0;
+    this.ringsetting = 0;
 }
 //Performs a single character substitution, from the forward side of the rotor.
 Rotor.prototype.sub = function(character) {
     var charIndex = character.charCodeAt() - 65;
-    charIndex = (charIndex + this.position) % 26; //The rotation of the rotor affects incoming letters.
+    charIndex = (charIndex + this.position - this.ringsetting) % 26; //The rotation of the rotor affects incoming letters.
     var returnChar = String.fromCharCode(this.mapping.charCodeAt(charIndex));
-    return shiftChar(returnChar, -this.position);
+    return shiftChar(returnChar, this.ringsetting - this.position);
 }
 //Performs a single character substitution, from the back side of the rotor.
 Rotor.prototype.backsub = function(character) {
-    var newChar = shiftChar(character, this.position)
+    var newChar = shiftChar(character, this.position - this.ringsetting)
     var charIndex = this.mapping.indexOf(newChar);
     var returnChar = String.fromCharCode(charIndex + 65);
-    return shiftChar(returnChar, -this.position);
+    return shiftChar(returnChar, this.ringsetting-this.position);
 }
 //Advances the rotor. Returns the new position.
 Rotor.prototype.step = function() { 
