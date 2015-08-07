@@ -154,4 +154,19 @@ QUnit.test( "Sub and BackSub are inverses.", function( assert ) {
     this.rotor.position = 1;
     assert.equal(this.rotor.sub(this.rotor.backsub('A')),'A');
     assert.equal(this.rotor.backsub(this.rotor.sub('A')),'A');
+    this.rotor.ringsetting = 3;
+    assert.equal(this.rotor.sub(this.rotor.backsub('A')),'A');
+    assert.equal(this.rotor.backsub(this.rotor.sub('A')),'A');
+});
+QUnit.test( "Ring setting on forward substitution", function( assert ) {
+    this.rotor.ringsetting = 5;
+    assert.equal(this.rotor.sub('A'),'N');
+    assert.equal(this.rotor.sub('Z'),'F');
+    assert.equal(this.rotor.sub('J'),'Q'); 
+});
+QUnit.test( "Ring setting on backward substitution", function( assert ) {
+    this.rotor.ringsetting = 5;
+    assert.equal(this.rotor.backsub('N'),'A');
+    assert.equal(this.rotor.backsub('F'),'Z');
+    assert.equal(this.rotor.backsub('Q'),'J'); 
 });

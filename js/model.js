@@ -59,15 +59,14 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     workingChar = this.plugboardTransform(workingChar);
     this.step(); //You have to step BEFORE encrypting.
 
-    for (var x=0;x<this.rotors.length;x++) {
+    for (var x=0;x<this.rotors.length;x++) 
         workingChar = this.rotors[x].sub(workingChar);
-    }
     
     workingChar = substitute(workingChar, this.reflector);
     
     for (var x=this.rotors.length-1;x>=0;x--)
         workingChar = this.rotors[x].backsub(workingChar);
-
+    
     return this.plugboardTransform(workingChar);
 }
 Enigma.prototype.reset = function() { //Resets the machine.
@@ -124,8 +123,9 @@ function Rotor(mapping, turnover) {
 //Performs a single character substitution, from the forward side of the rotor.
 Rotor.prototype.sub = function(character) {
     var charIndex = character.charCodeAt() - 65;
-    charIndex = (charIndex + this.position - this.ringsetting) % 26; //The rotation of the rotor affects incoming letters.
-    var returnChar = String.fromCharCode(this.mapping.charCodeAt(charIndex));
+    charIndex = (charIndex + this.position - this.ringsetting) % 26; 
+    if (charIndex < 0) charIndex += 26;
+    var returnChar = this.mapping.charAt(charIndex);
     return shiftChar(returnChar, this.ringsetting - this.position);
 }
 //Performs a single character substitution, from the back side of the rotor.
@@ -133,7 +133,7 @@ Rotor.prototype.backsub = function(character) {
     var newChar = shiftChar(character, this.position - this.ringsetting)
     var charIndex = this.mapping.indexOf(newChar);
     var returnChar = String.fromCharCode(charIndex + 65);
-    return shiftChar(returnChar, this.ringsetting-this.position);
+    return shiftChar(returnChar, this.ringsetting - this.position);
 }
 //Advances the rotor. Returns the new position.
 Rotor.prototype.step = function() { 
