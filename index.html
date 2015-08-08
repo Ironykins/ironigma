@@ -27,6 +27,8 @@
         <div ng-app="ironigma">
             <div ng-controller="enigma">
                 <p>Machine State: {{ enigma }}</p>
+                <h1>Rotors:</h1>
+                <h3>Rotor Positions</h3>
                 <table >
                     <tr>
                         <td> Rotor I </td>
@@ -34,27 +36,82 @@
                         <td> Rotor III </td>
                     </tr>
                     <tr>
+                        <td> <button ng-click="notImplemented()">^</button> </td>
+                        <td> <button ng-click="notImplemented()">^</button> </td>
+                        <td> <button ng-click="notImplemented()">^</button> </td>
+                    </tr>
+                    <tr>
                         <td> {{ enigma.rotors[2].displayChar() }} </td>
                         <td> {{ enigma.rotors[1].displayChar() }} </td>
                         <td> {{ enigma.rotors[0].displayChar() }} </td>
                     </tr>
+                    <tr>
+                        <td> <button ng-click="notImplemented()">v</button> </td>
+                        <td> <button ng-click="notImplemented()">v</button> </td>
+                        <td> <button ng-click="notImplemented()">v</button> </td>
+                    </tr>
                 </table>
+                <h3>Ring Settings</h3>
+                <table>
+                    <tr>
+                        <td> Rotor I </td>
+                        <td> Rotor II </td>
+                        <td> Rotor III </td>
+                    </tr>
+                    <tr>
+                        <td> <button ng-click="notImplemented()">^</button> </td>
+                        <td> <button ng-click="notImplemented()">^</button> </td>
+                        <td> <button ng-click="notImplemented()">^</button> </td>
+                    </tr>
+                    <tr>
+                        <td> {{ enigma.rotors[2].ringsetting + 1 }} </td>
+                        <td> {{ enigma.rotors[1].ringsetting + 1 }} </td>
+                        <td> {{ enigma.rotors[0].ringsetting + 1 }} </td>
+                    </tr>
+                    <tr>
+                        <td> <button ng-click="notImplemented()">v</button> </td>
+                        <td> <button ng-click="notImplemented()">v</button> </td>
+                        <td> <button ng-click="notImplemented()">v</button> </td>
+                    </tr>
+                </table>
+                <button ng-click="step()">Step Rotors</button>
+                <button ng-click="reset()">Reset</button>
+                <h1>I/O:</h1>
                 <table>
                     <tr>
                         <td>Input</td>
                         <td>Output</td>
                     </tr>
                     <tr>
-                        <td width="300">
+                        <td>
                             <input type="text" ng-model="input" ng-change="charEncrypt()"/>
                         </td>
-                        <td width="300">
+                        <td>
                             <p>{{ ciphertext }}</p>
                         </td>
                     </tr>
-
-                <button ng-click="step()">Step Rotors</button>
-                <button ng-click="reset()">Reset</button>
+                </table>
+                <h1>Plugboard</h1>
+                <table>
+                    <tr>
+                        <script type="text/javascript">
+                        for(var letterCode = 65; letterCode < 91; letterCode++){
+                            document.write("<td><b>"+String.fromCharCode(letterCode)+"</b></td>");
+                        }
+                        </script>
+                    </tr>
+                    <tr>
+                        <script type="text/javascript">
+                        var line1 = "<td> <input class=\"plugInput\" type=\"text\" ng-model=\"plugboard['"
+                        var line2 = "']\" ng-change=\"plugboardInput('"
+                        var line3 = "')\" maxlength=\"1\"/> </td>"
+                        for(var letterCode = 65; letterCode < 91; letterCode++){
+                            var curChar = String.fromCharCode(letterCode)
+                            document.write(line1 + curChar + line2 + curChar + line3);
+                        }
+                        </script>
+                    </tr>
+                </table>
             </div>
             
         </div>

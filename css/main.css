@@ -106,7 +106,11 @@ table, th, td {
     padding: 5px;
 }
 
-
+.plugInput {
+    border: none;
+    width: 15px;
+    text-align: center;
+}
 
 
 
