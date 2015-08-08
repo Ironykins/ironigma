@@ -10,6 +10,7 @@ angular.module('ironigma', [])
     $scope.reset = function() { 
         $scope.enigma.reset() 
         $scope.ciphertext = ""
+        $scope.plugboard = []
     }
 
     $scope.charEncrypt = function() { 
@@ -24,7 +25,6 @@ angular.module('ironigma', [])
     //Change plugboard input
     $scope.plugboardInput = function(changedChar) {
         var enteredChar = $scope.plugboard[changedChar];
-        if(enteredChar == changedChar) { return; }
 
         //If the plugboard has an entry for this char, remove it.
         for(var i=0;i<$scope.enigma.plugboard.length;i++) {
@@ -38,12 +38,10 @@ angular.module('ironigma', [])
             }
         }
         
-        if(enteredChar.length == 1) 
-        {
+        if(enteredChar.length == 1 && enteredChar != changedChar) 
             $scope.enigma.plugboard.push([changedChar, enteredChar]);
-        }
 
-        //Then we sync up the view.
+        //Then we sync up the view. Shouldn't be bad on performance. Small arrays.
         $scope.plugboard = [];
         for(var i=0;i<$scope.enigma.plugboard.length;i++) {
             var char1 = $scope.enigma.plugboard[i][0];
