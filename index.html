@@ -36,9 +36,9 @@
                         <td ng-repeat="n in enigma.rotors track by $index">
                             <table>
                                 <tr><td><b>Rotor {{n.name}}</b></td></tr>
-                                <tr><td> <button ng-click="stepRotor(n,true)">^</button> </td></tr>
-                                <tr><td> {{ n.displayChar() }} </td></tr>
-                                <tr><td> <button ng-click="stepRotor(n,false)">v</button> </td></tr>
+                                <tr><td><button ng-click="stepRotor(n,true)">^</button></td></tr>
+                                <tr><td><input onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
+                                <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
                             </table>
                         </td>
                     </tr>
@@ -49,9 +49,9 @@
                         <td ng-repeat="n in enigma.rotors track by $index">
                             <table>
                                 <tr><td><b>Rotor {{n.name}}</b></td></tr>
-                                <tr><td> <button ng-click="notImplemented()">^</button> </td></tr>
-                                <tr><td> {{ n.ringsetting + 1 }} </td></tr>
-                                <tr><td> <button ng-click="notImplemented()">v</button> </td></tr>
+                                <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
+                                <tr><td><input rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="1"/></td></tr>
+                                <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
                             </table>
                         </td>
                     </tr>

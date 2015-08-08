@@ -1,14 +1,10 @@
 //Let's do this shit.
+var app = angular.module('ironigma', []);
 
-angular.module('ironigma', [])
-.controller('enigma', ['$scope', function($scope) {
+app.controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
     $scope.ciphertext = "";
     $scope.plugboard = [];
-
-    $scope.notImplemented = function() {
-        alert("Not yet implemented!");
-    }
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -28,7 +24,13 @@ angular.module('ironigma', [])
         rotor.position = (rotor.position + shiftVal + 26) % 26
     }
 
-    //Change plugboard.
+    //Adjust a ring setting
+    $scope.stepRingsetting = function(rotor, up) {
+        var shiftVal = up ? 1 : -1;
+        rotor.ringsetting = (rotor.ringsetting + shiftVal + 26) % 26
+    }
+
+    //Change plugboard settings
     $scope.plugboardInput = function(changedChar) {
         var enteredChar = $scope.plugboard[changedChar];
 
@@ -59,3 +61,36 @@ angular.module('ironigma', [])
     }
 }])
 
+//Show rotor position as a character. 
+app.directive('rotorPosFormatter', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, controller) {
+            controller.$formatters.push(function(value) {
+                return String.fromCharCode(value + 65);
+            });
+            controller.$parsers.push(function(value) {
+                if(value.length != 1) return 0;
+                var charCode = value.charCodeAt();
+                if(charCode >= 97) {charCode -= 32} //Convert lowercase.
+                if(charCode < 65 || charCode > 90) {return 0}
+                return charCode - 65;
+            });
+        }
+    };
+});
+
+//Ringsetting should be shifted up 1. 
+app.directive('rotorRingsettingFormatter', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, controller) {
+            controller.$formatters.push(function(value) {
+                return value+1;
+            });
+            controller.$parsers.push(function(value) {
+                return value-1;
+            });
+        }
+    };
+});
