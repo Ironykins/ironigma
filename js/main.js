@@ -4,6 +4,7 @@ angular.module('ironigma', [])
 .controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
     $scope.ciphertext = "";
+    $scope.plugboard = [];
 
     $scope.notImplemented = function() {
         alert("Not yet implemented!");
