@@ -4,7 +4,10 @@ angular.module('ironigma', [])
 .controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
     $scope.ciphertext = "";
-    //$scope.plugboard = [];
+
+    $scope.notImplemented = function() {
+        alert("Not yet implemented!");
+    }
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -18,11 +21,13 @@ angular.module('ironigma', [])
         $scope.input = "";
     }
 
-    $scope.notImplemented = function() {
-        alert("Not yet implemented!");
+    //Steps a rotor up or down.
+    $scope.stepRotor = function(rotor, up) {
+        var shiftVal = up ? 1 : -1;
+        rotor.position = (rotor.position + shiftVal + 26) % 26
     }
 
-    //Change plugboard input
+    //Change plugboard.
     $scope.plugboardInput = function(changedChar) {
         var enteredChar = $scope.plugboard[changedChar];
 

@@ -98,15 +98,16 @@ function shiftChar(character, steps) {
 M3.prototype = new Enigma();
 M3.prototype.constructor = M3;
 function M3() {
-    var rIII = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
-    var rII  = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
-    var rI   = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
+    var rIII = new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
+    var rII  = new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
+    var rI   = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
     this.rotors = [rIII, rII, rI];
     this.plugboard = [];
     this.reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; //Reflector B
 }
 
 /* Rotors keep track of:
+ * name: The name of the rotor. (Eg. "III")
  * mapping: The substitution alphabet of the rotor
  * turnover: The position of the turnover notch 
  *           (If the rotor steps away from the letter with 
@@ -114,7 +115,8 @@ function M3() {
  * position: The current rotation of the ring
  * ringsetting: The current ringsetting
  */
-function Rotor(mapping, turnover) {
+function Rotor(name, mapping, turnover) {
+    this.name = name;
     this.mapping = mapping;
     this.turnover = turnover;
     this.position = 0;

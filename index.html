@@ -26,19 +26,21 @@
         <!-- Application content here -->
         <div ng-app="ironigma">
             <div ng-controller="enigma">
+                <p>TODO: Hide this.<p/>
                 <p>Machine State: {{ enigma }}</p>
                 <h1>Rotors:</h1>
-                <h3>Rotor Positions</h3>
-                <table >
+                <p>TODO: Allow users to choose their rotors.</p>
+                <h3>Rotor Positions (Left to right)</h3>
+                <table>
                     <tr>
                         <td> Rotor I </td>
                         <td> Rotor II </td>
                         <td> Rotor III </td>
                     </tr>
                     <tr>
-                        <td> <button ng-click="notImplemented()">^</button> </td>
-                        <td> <button ng-click="notImplemented()">^</button> </td>
-                        <td> <button ng-click="notImplemented()">^</button> </td>
+                        <td> <button ng-click="stepRotor(enigma.rotors[2],true)">^</button> </td>
+                        <td> <button ng-click="stepRotor(enigma.rotors[1],true)">^</button> </td>
+                        <td> <button ng-click="stepRotor(enigma.rotors[0],true)">^</button> </td>
                     </tr>
                     <tr>
                         <td> {{ enigma.rotors[2].displayChar() }} </td>
@@ -46,11 +48,16 @@
                         <td> {{ enigma.rotors[0].displayChar() }} </td>
                     </tr>
                     <tr>
-                        <td> <button ng-click="notImplemented()">v</button> </td>
-                        <td> <button ng-click="notImplemented()">v</button> </td>
-                        <td> <button ng-click="notImplemented()">v</button> </td>
+                        <td> <button ng-click="stepRotor(enigma.rotors[2],false)">v</button> </td>
+                        <td> <button ng-click="stepRotor(enigma.rotors[1],false)">v</button> </td>
+                        <td> <button ng-click="stepRotor(enigma.rotors[0],false)">v</button> </td>
                     </tr>
                 </table>
+                <!-- Should this be included? Might just confuse people.
+                <label>Step rotors as they're adjusted?
+                    <input type="checkbox" ng-model="shouldStepManually"/>
+                </label>
+                -->
                 <h3>Ring Settings</h3>
                 <table>
                     <tr>
@@ -112,6 +119,8 @@
                         </script>
                     </tr>
                 </table>
+                <h1>Reflector</h1>
+                <p>TODO: Allow user to pick a reflector</p>
             </div>
             
         </div>

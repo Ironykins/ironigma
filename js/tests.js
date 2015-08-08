@@ -3,9 +3,9 @@
  */
 QUnit.module("Enigma Tests", {
     beforeEach: function() {
-        var rIII = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
-        var rII = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
-        var rI = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
+        var rIII = new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
+        var rII  = new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
+        var rI   = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
         this.enigma = new Enigma([rIII,rII,rI],"YRUHQSLDPXNGOKMIEBFZCWVJAT", []);
     },});
 QUnit.test("Plugboard validation", function( assert ) {
@@ -99,7 +99,7 @@ QUnit.test("Non-letter characters are ignored.", function( assert ) {
  */
 QUnit.module("Rotor Tests", {
     beforeEach: function() {
-        this.rotor = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
+        this.rotor = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
     },});
 QUnit.test( "Single Rotor Substitution without stepping", function( assert ) {
     assert.equal(this.rotor.sub('A'),'E');
