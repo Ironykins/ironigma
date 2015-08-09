@@ -12,8 +12,9 @@ function M3() {
     var rIII = new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
     var rII  = new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
     var rI   = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
+    var reflectorB = new Reflector("Beta","YRUHQSLDPXNGOKMIEBFZCWVJAT");
     this.rotors = [rI, rII, rIII];
     this.plugboard = [];
-    this.reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; //Reflector B
+    this.reflector = reflectorB;
 }
 

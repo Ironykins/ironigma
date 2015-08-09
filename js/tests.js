@@ -6,7 +6,8 @@ QUnit.module("Enigma Tests", {
         var rIII = new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
         var rII  = new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
         var rI   = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
-        this.enigma = new Enigma([rI,rII,rIII],"YRUHQSLDPXNGOKMIEBFZCWVJAT", []);
+        var reflector = new Reflector("Beta","YRUHQSLDPXNGOKMIEBFZCWVJAT");
+        this.enigma = new Enigma([rI,rII,rIII],reflector,[]);
     },});
 QUnit.test("Plugboard validation", function( assert ) {
     assert.ok(this.enigma.checkPlugboard());
@@ -40,7 +41,6 @@ QUnit.test("Encrypts a single character correctly.", function( assert ) {
     assert.equal(encryption1,'B');
     assert.equal(encryption2,'J');
     assert.equal(encryption3,'E');
-
 });
 QUnit.test("Reset resets the machine.", function( assert) {
     this.enigma.plugboard = [ ['A','B'] ];

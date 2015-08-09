@@ -62,7 +62,7 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     for (var x=this.rotors.length-1;x>=0;x--)
         workingChar = this.rotors[x].sub(workingChar);
     
-    workingChar = substitute(workingChar, this.reflector);
+    workingChar = this.reflector.sub(workingChar);
     
     for (var x=0;x<this.rotors.length;x++) 
         workingChar = this.rotors[x].backsub(workingChar);
@@ -83,10 +83,16 @@ Enigma.prototype.validate = function(character) { //Returns a sane character inp
     return String.fromCharCode(charCode)
 }
 
-//General function to substitue a character using a given mapping.
-function substitute(character, mapping) { 
+/*
+ * Reflector! Just allows subtitution.
+ */
+function Reflector(name, mapping) {
+    this.name = name;
+    this.mapping = mapping;
+}
+Reflector.prototype.sub= function(character) {
     var charIndex = character.charCodeAt() - 65;
-    return mapping[charIndex];
+    return this.mapping[charIndex];
 }
 
 function shiftChar(character, steps) {
