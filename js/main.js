@@ -33,19 +33,33 @@ app.controller('enigma', ['$scope', function($scope) {
         rotor.ringsetting = (rotor.ringsetting + shiftVal + 26) % 26
     }
 
+    //Functions for doing thangs with the machine's rotors.
     $scope.removeRotor = function(rotorIndex) {
         $scope.enigma.rotors.splice(rotorIndex,1);
+        $scope.updateRotorView();
     }
     
     $scope.addRotor = function() {
         var newRotor = angular.copy($scope.rotorList[0]);
         $scope.enigma.rotors.push(newRotor);
+        $scope.updateRotorView();
     }
 
     $scope.changeRotor = function(index) {
         var newRotor = angular.copy($scope.selectedRotors[index]);
         $scope.enigma.rotors[index] = newRotor;
+        $scope.updateRotorView();
     }
+
+    //Hacky way of syncing the view and model.
+    $scope.updateRotorView = function() {
+        //Double-nested for with x and y indices. It's like I'm really back in high school...
+        for (var x=0,lx=$scope.enigma.rotors.length;x<lx;x++) 
+            for(var y=0,ly=$scope.rotorList.length;y<ly;y++)
+                if($scope.enigma.rotors[x].name == $scope.rotorList[y].name)
+                    $scope.selectedRotors[x] = $scope.rotorList[y];
+    }
+    $scope.updateRotorView();
 
     //Change plugboard settings
     $scope.plugboardInput = function(changedChar) {
@@ -78,7 +92,7 @@ app.controller('enigma', ['$scope', function($scope) {
     }
 }])
 
-//Show rotor position as a character. 
+//Rotor position acts like a number, but wants people to see it as a character.
 app.directive('rotorPosFormatter', function() {
     return {
         require: 'ngModel',
@@ -97,7 +111,7 @@ app.directive('rotorPosFormatter', function() {
     };
 });
 
-//Ringsetting should be shifted up 1. 
+//Ringsetting should be shifted up 1. Because zero indexing will cause users to faint.
 app.directive('rotorRingsettingFormatter', function() {
     return {
         require: 'ngModel',
