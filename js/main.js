@@ -35,6 +35,11 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.removeRotor = function(rotorIndex) {
         $scope.enigma.rotors.splice(rotorIndex,1);
     }
+    
+    $scope.addRotor = function() {
+        var newRotor = angular.copy($scope.rotorList[0]);
+        $scope.enigma.rotors.push(newRotor);
+    }
 
     //Change plugboard settings
     $scope.plugboardInput = function(changedChar) {
