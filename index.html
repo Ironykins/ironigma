@@ -27,6 +27,7 @@
         <!-- Application content here -->
         <div ng-app="ironigma">
             <div ng-controller="enigma">
+                <h1>Enigma Machine Emulator</h1>
                 <p>TODO: Hide this.<p/>
                 <p>Machine State: {{ enigma }}</p>
                 <h1>Rotors:</h1>
@@ -95,7 +96,7 @@
                         <td ng-repeat="n in enigma.rotors track by $index">
                             <table>
                                 <tr><td><b>Rotor {{n.name}}</b></td></tr>
-                                <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="enigma.rotors[$index]"></select></tr></td>
+                                <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></tr></td>
                                 <tr><td><button ng-click="removeRotor($index)">Delete</button></tr></td>
                             </table>
                         </td>

@@ -29,7 +29,10 @@ var ETW = new Reflector("ETW","ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 M3.prototype = new Enigma();
 M3.prototype.constructor = M3;
 function M3() {
-    this.rotors = [rI, rII, rIII];
+    var newRI = angular.copy(rI);
+    var newRII = angular.copy(rII);
+    var newRIII = angular.copy(rIII);
+    this.rotors = [newRI, newRII, newRIII];
     this.plugboard = [];
     this.reflector = refB;
 }

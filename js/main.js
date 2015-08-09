@@ -6,6 +6,7 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.ciphertext = "";
     $scope.plugboard = [];
     $scope.rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
+    $scope.selectedRotors = [];
     $scope.reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
 
     $scope.step = function() { $scope.enigma.step() }
@@ -39,6 +40,11 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.addRotor = function() {
         var newRotor = angular.copy($scope.rotorList[0]);
         $scope.enigma.rotors.push(newRotor);
+    }
+
+    $scope.changeRotor = function(index) {
+        var newRotor = angular.copy($scope.selectedRotors[index]);
+        $scope.enigma.rotors[index] = newRotor;
     }
 
     //Change plugboard settings
