@@ -141,6 +141,17 @@ QUnit.test( "Rotor steps properly", function( assert ) {
     this.rotor.step();
     assert.ok(this.rotor.willTurnoverOnStep());
 });
+QUnit.test( "Rotor doublesteps properly", function( assert ) {
+    this.rotor = new Rotor("VI","JPGVOUMFYQBENHZRDKASXLICTW", 25, 12);
+    this.rotor.position = 24;
+    assert.notOk(this.rotor.willTurnoverOnStep());
+    this.rotor.step();
+    assert.ok(this.rotor.willTurnoverOnStep());
+    this.rotor.position = 11;
+    assert.notOk(this.rotor.willTurnoverOnStep());
+    this.rotor.step();
+    assert.ok(this.rotor.willTurnoverOnStep());
+});
 QUnit.test( "Rotor shows the correct character", function( assert ) {
     this.rotor.position = 0;
     assert.equal(this.rotor.displayChar(),'A');

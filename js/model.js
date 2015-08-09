@@ -110,12 +110,13 @@ function shiftChar(character, steps) {
  * position: The current rotation of the ring
  * ringsetting: The current ringsetting
  */
-function Rotor(name, mapping, turnover) {
+function Rotor(name, mapping, turnover, doubleTurnover) {
     this.name = name;
     this.mapping = mapping;
     this.turnover = turnover;
     this.position = 0;
     this.ringsetting = 0;
+    this.doubleTurnover = typeof doubleTurnover != 'undefined' ? doubleTurnover : -1;
 }
 //Performs a single character substitution, from the forward side of the rotor.
 Rotor.prototype.sub = function(character) {
@@ -139,7 +140,7 @@ Rotor.prototype.step = function() {
 }
 //True if the next step will cause the rotor to step the next one forwards.
 Rotor.prototype.willTurnoverOnStep = function() {
-    return (this.position == this.turnover);
+    return (this.position == this.turnover) || (this.position == this.doubleTurnover);
 }
 Rotor.prototype.displayChar = function() {
     return String.fromCharCode(this.position + 65);
