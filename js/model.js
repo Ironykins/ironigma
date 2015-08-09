@@ -37,7 +37,7 @@ Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuratio
     return true;
 }
 Enigma.prototype.step = function() { //Steps the rightmost rotor. If this triggers another step, perform it. And so on.
-    for(var x=0;x<this.rotors.length;x++) {
+    for (var x=this.rotors.length-1;x>=0;x--) {
         var cont = this.rotors[x].willTurnoverOnStep();
         this.rotors[x].step();
         if(!cont) return;
@@ -59,12 +59,12 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     workingChar = this.plugboardTransform(workingChar);
     this.step(); //You have to step BEFORE encrypting.
 
-    for (var x=0;x<this.rotors.length;x++) 
+    for (var x=this.rotors.length-1;x>=0;x--)
         workingChar = this.rotors[x].sub(workingChar);
     
     workingChar = substitute(workingChar, this.reflector);
     
-    for (var x=this.rotors.length-1;x>=0;x--)
+    for (var x=0;x<this.rotors.length;x++) 
         workingChar = this.rotors[x].backsub(workingChar);
     
     return this.plugboardTransform(workingChar);

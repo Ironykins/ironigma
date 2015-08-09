@@ -6,7 +6,7 @@ QUnit.module("Enigma Tests", {
         var rIII = new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
         var rII  = new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
         var rI   = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
-        this.enigma = new Enigma([rIII,rII,rI],"YRUHQSLDPXNGOKMIEBFZCWVJAT", []);
+        this.enigma = new Enigma([rI,rII,rIII],"YRUHQSLDPXNGOKMIEBFZCWVJAT", []);
     },});
 QUnit.test("Plugboard validation", function( assert ) {
     assert.ok(this.enigma.checkPlugboard());
@@ -20,18 +20,18 @@ QUnit.test("Plugboard validation", function( assert ) {
     assert.notOk(this.enigma.checkPlugboard());
 });
 QUnit.test("Properly performs rotor turnover.", function( assert ) {
-    this.enigma.rotors[0].position = 21;
+    this.enigma.rotors[2].position = 21;
     this.enigma.rotors[1].position = 5;
-    this.enigma.rotors[2].position = 17;
+    this.enigma.rotors[0].position = 17;
     this.enigma.step();
-    assert.equal(this.enigma.rotors[0].position, 22);
+    assert.equal(this.enigma.rotors[2].position, 22);
     assert.equal(this.enigma.rotors[1].position, 6);
-    assert.equal(this.enigma.rotors[2].position, 17);
+    assert.equal(this.enigma.rotors[0].position, 17);
 });
 QUnit.test("Steps forward after character encryption", function( assert ) {
-    this.enigma.rotors[0].position = 9;
+    this.enigma.rotors[2].position = 9;
     var encryption1 = this.enigma.encrypt('A');
-    assert.equal(this.enigma.rotors[0].position, 10);
+    assert.equal(this.enigma.rotors[2].position, 10);
 });
 QUnit.test("Encrypts a single character correctly.", function( assert ) {
     var encryption1 = this.enigma.encrypt('A');
