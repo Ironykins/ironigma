@@ -87,6 +87,8 @@
                     </tr>
                 </table>
                 <h1>Reflector</h1>
+                <select data-ng-options="o.name for o in reflectorList" data-ng-model="selectedReflector" ng-change="changeReflector()">
+                </select>
                 <p>TODO: Allow user to pick a reflector</p>
             </div>
             

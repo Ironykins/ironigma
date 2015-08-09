@@ -5,6 +5,9 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
     $scope.ciphertext = "";
     $scope.plugboard = [];
+    $scope.rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
+    $scope.reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
+    $scope.selectedReflector = $scope.reflectorList[3];
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -28,6 +31,10 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.stepRingsetting = function(rotor, up) {
         var shiftVal = up ? 1 : -1;
         rotor.ringsetting = (rotor.ringsetting + shiftVal + 26) % 26
+    }
+    
+    $scope.changeReflector = function() {
+        $scope.enigma.reflector = $scope.selectedReflector;
     }
 
     //Change plugboard settings

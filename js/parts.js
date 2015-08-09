@@ -15,6 +15,8 @@ var rVI = new Rotor("VI","JPGVOUMFYQBENHZRDKASXLICTW", 25, 12);
 var rVII = new Rotor("VII","NZJHGRCXMYSWBOUFAIVLPEKQDT", 25, 12);
 var rVIII = new Rotor("VIII","FKQHTLXOCBJSPDZRAMEWNIUYGV", 25, 12);
 
+var rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
+
 /* ALl the different Reflectors */
 var refBeta = new Reflector("Reflector Beta","LEYJVCNIXWPBQMDRTAKZGFUHOS");
 var refGamma = new Reflector("Reflector Gamma","FSOKANUERHMBTIYCWLQPZXVGJD");
@@ -24,6 +26,8 @@ var refC = new Reflector("Reflector C","FVPJIAOYEDRZXWGCTKUQSBNMHL");
 var refBThin = new Reflector("Reflector B Thin","ENKQAUYWJICOPBLMDXZVFTHRGS");
 var refCThin = new Reflector("Reflector C Thin","RDOBJNTKVEHMLFCWZAXGYIPSUQ");
 var ETW = new Reflector("ETW","ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+
+var reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
 
 /* Classic M3 Enigma Machine. */
 M3.prototype = new Enigma();
