@@ -16,6 +16,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/model.js"></script>
+        <script src="js/parts.js"></script>
         <script src="js/main.js"></script>
     </head>
     <body>
@@ -29,7 +30,6 @@
                 <p>TODO: Hide this.<p/>
                 <p>Machine State: {{ enigma }}</p>
                 <h1>Rotors:</h1>
-                <p>TODO: Allow users to choose their rotors.</p>
                 <h3>Rotor Positions (Right to Left)</h3>
                 <table>
                     <tr>
@@ -37,7 +37,7 @@
                             <table>
                                 <tr><td><b>Rotor {{n.name}}</b></td></tr>
                                 <tr><td><button ng-click="stepRotor(n,true)">^</button></td></tr>
-                                <tr><td><input onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
+                                <tr><td><input class="rotorInput" onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
                                 <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
                             </table>
                         </td>
@@ -50,7 +50,7 @@
                             <table>
                                 <tr><td><b>Rotor {{n.name}}</b></td></tr>
                                 <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
-                                <tr><td><input rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="1"/></td></tr>
+                                <tr><td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="1"/></td></tr>
                                 <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
                             </table>
                         </td>

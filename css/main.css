@@ -95,20 +95,22 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-.rotorTable {
-
-}
-
-
 table, th, td {
     border: 2px solid black;
     margin: 5px;
     padding: 5px;
+    text-align:center;
 }
 
 .plugInput {
     border: none;
     width: 15px;
+    text-align: center;
+}
+
+.rotorInput {
+    border: 1px solid black;
+    width: 25px;
     text-align: center;
 }
 

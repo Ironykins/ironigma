@@ -95,18 +95,6 @@ function shiftChar(character, steps) {
     return String.fromCharCode(charIndex + 65);
 }
 
-/* Working Engima machine default. */
-M3.prototype = new Enigma();
-M3.prototype.constructor = M3;
-function M3() {
-    var rIII = new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", 21);
-    var rII  = new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", 4);
-    var rI   = new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", 16);
-    this.rotors = [rIII, rII, rI];
-    this.plugboard = [];
-    this.reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"; //Reflector B
-}
-
 /* Rotors keep track of:
  * name: The name of the rotor. (Eg. "III")
  * mapping: The substitution alphabet of the rotor
