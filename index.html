@@ -87,9 +87,20 @@
                     </tr>
                 </table>
                 <h1>Reflector</h1>
-                <select data-ng-options="o.name for o in reflectorList" data-ng-model="selectedReflector" ng-change="changeReflector()">
+                <select data-ng-options="o.name for o in reflectorList" data-ng-model="enigma.reflector">
                 </select>
-                <p>TODO: Allow user to pick a reflector</p>
+                <h1>Pick Rotors</h1>
+                <table>
+                    <tr>
+                        <td ng-repeat="n in enigma.rotors track by $index">
+                            <table>
+                                <tr><td><b>Rotor {{n.name}}</b></td></tr>
+                                <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="enigma.rotors[$index]"></select></tr></td>
+                                <tr><td><button ng-click="removeRotor($index)">Delete</button></tr></td>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
             </div>
             
         </div>

@@ -7,7 +7,6 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.plugboard = [];
     $scope.rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
     $scope.reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
-    $scope.selectedReflector = $scope.reflectorList[3];
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -32,9 +31,9 @@ app.controller('enigma', ['$scope', function($scope) {
         var shiftVal = up ? 1 : -1;
         rotor.ringsetting = (rotor.ringsetting + shiftVal + 26) % 26
     }
-    
-    $scope.changeReflector = function() {
-        $scope.enigma.reflector = $scope.selectedReflector;
+
+    $scope.removeRotor = function(rotorIndex) {
+        $scope.enigma.rotors.splice(rotorIndex,1);
     }
 
     //Change plugboard settings
