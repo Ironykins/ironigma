@@ -29,6 +29,15 @@ QUnit.test("Properly performs rotor turnover.", function( assert ) {
     assert.equal(this.enigma.rotors[1].position, 6);
     assert.equal(this.enigma.rotors[0].position, 17);
 });
+QUnit.test("Properly undoes rotor turnover.", function( assert ) {
+    this.enigma.rotors[2].position = 22;
+    this.enigma.rotors[1].position = 6;
+    this.enigma.rotors[0].position = 17;
+    this.enigma.backstep();
+    assert.equal(this.enigma.rotors[2].position, 21);
+    assert.equal(this.enigma.rotors[1].position, 5);
+    assert.equal(this.enigma.rotors[0].position, 17);
+});
 QUnit.test("Steps forward after character encryption", function( assert ) {
     this.enigma.rotors[2].position = 9;
     var encryption1 = this.enigma.encrypt('A');
@@ -134,6 +143,12 @@ QUnit.test( "Rotor advances correctly", function( assert ) {
     assert.equal(this.rotor.step(),25);
     assert.equal(this.rotor.step(),0);
     assert.equal(this.rotor.step(),1); 
+});
+QUnit.test( "Rotor moves backwards correctly", function( assert ) {
+    this.rotor.position = 1;
+    assert.equal(this.rotor.backstep(),0);
+    assert.equal(this.rotor.backstep(),25);
+    assert.equal(this.rotor.backstep(),24); 
 });
 QUnit.test( "Rotor steps properly", function( assert ) {
     this.rotor.position = 15;

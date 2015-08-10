@@ -43,6 +43,12 @@ Enigma.prototype.step = function() { //Steps the rightmost rotor. If this trigge
         if(!cont) return;
     }
 }
+Enigma.prototype.backstep = function() { //Same as above, but backwards.
+    for (var x=this.rotors.length-1;x>=0;x--) {
+        this.rotors[x].backstep();
+        if(!this.rotors[x].willTurnoverOnStep()) return;
+    }
+}
 Enigma.prototype.plugboardTransform = function(character) {
     for(var x=0;x<this.plugboard.length;x++) {
         if(this.plugboard[x][0] == character)
@@ -136,6 +142,11 @@ Rotor.prototype.backsub = function(character) {
 //Advances the rotor. Returns the new position.
 Rotor.prototype.step = function() { 
     this.position = (this.position + 1) % 26;
+    return this.position;
+}
+//Reverse of the above.
+Rotor.prototype.backstep = function() { 
+    this.position = (this.position - 1 + 26) % 26;
     return this.position;
 }
 //True if the next step will cause the rotor to step the next one forwards.
