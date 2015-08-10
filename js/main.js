@@ -62,7 +62,7 @@ app.controller('enigma', ['$scope', function($scope) {
 
     //Change plugboard settings
     $scope.plugboardInput = function(changedChar) {
-        var enteredChar = $scope.plugboard[changedChar];
+        var enteredChar = $scope.plugboard[changedChar].toUpperCase();
 
         //If the plugboard has an entry for this char, remove it.
         for(var i=0;i<$scope.enigma.plugboard.length;i++) {
