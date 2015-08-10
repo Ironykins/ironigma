@@ -3,11 +3,13 @@ var app = angular.module('ironigma', []);
 
 app.controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
+    $scope.plaintext = "";
     $scope.ciphertext = "";
     $scope.plugboard = [];
     $scope.rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
     $scope.selectedRotors = [];
     $scope.reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
+    $scope.oldInputLength = 0;
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -16,8 +18,25 @@ app.controller('enigma', ['$scope', function($scope) {
         $scope.plugboard = []
     }
 
-    $scope.charEncrypt = function() { 
-        $scope.ciphertext += $scope.enigma.encrypt($scope.input.slice(-1));
+    /* This sucks. We need to re-encrypt the whole string. Every time.
+     * There's no easy way to know if they delete a bunch of shit in the middle
+     * of the string, or add a bunch of irrelevant characters like commas a numerals
+     * in a paste action, or type stuff in the middle or at the start of the string.
+     * This seems the only viable solution. */
+    //TODO: Look for optimizations.
+    $scope.inputChanged = function() { 
+        //Backstep it.
+        for(var i=0,il=$scope.plaintext.length;i<il;i++)
+            $scope.enigma.backstep();
+
+        $scope.plaintext = "";
+        $scope.ciphertext = "";
+        for(var i=0,il=$scope.input.length;i<il;i++) {
+            if( /[a-zA-Z]/.test($scope.input[i]) ) {
+                $scope.plaintext += $scope.input[i];
+                $scope.ciphertext += $scope.enigma.encrypt($scope.input[i]);
+            }
+        }
     }
 
     //Steps a rotor up or down.
@@ -133,7 +152,7 @@ app.directive('enigmaOutputFormatter', function() {
             controller.$formatters.push(function(value) {
                 var newVal = "";
                 for(var i=0,vl=value.length;i<vl;i++) {
-                    newVal += value[i];
+                    newVal += value[i].toUpperCase();
                     if(i % 4 == 3) newVal += ' ';
                 }
                 return newVal;

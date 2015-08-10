@@ -34,14 +34,18 @@
                 <table>
                     <tr>
                         <td>Input</td>
+                        <td>Recognized Text</td>
                         <td>Output</td>
                     </tr>
                     <tr>
                         <td>
-                            <textarea rows="6" cols="35" class="enigmaInput" type="text" ng-model="input" ng-change="charEncrypt()"></textarea>
+                            <textarea rows="6" cols="35" class="enigmaInput" ng-model="input" ng-change="inputChanged()"></textarea>
                         </td>
                         <td>
-                            <textarea enigma-output-formatter rows="6" cols="35" class="enigmaOutput" readonly="true" type="text" ng-model="ciphertext"></textarea>
+                            <textarea enigma-output-formatter rows="6" cols="35" readonly="true" ng-model="plaintext"></textarea>
+                        </td>
+                        <td>
+                            <textarea enigma-output-formatter rows="6" cols="35" class="enigmaOutput" readonly="true" ng-model="ciphertext"></textarea>
                         </td>
                     </tr>
                 </table>

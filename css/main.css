@@ -101,6 +101,10 @@ table, th, td {
     text-align:center;
 }
 
+textarea {
+    font-family: courier;
+}
+
 .plugInput {
     border: none;
     width: 15px;
