@@ -97,7 +97,6 @@ textarea {
 
 table, th, td {
     border: 2px solid black;
-    margin: 5px;
     padding: 5px;
     text-align:center;
 }
@@ -114,6 +113,9 @@ table, th, td {
     text-align: center;
 }
 
+.enigmaInput {
+    border: 1px solid black;
+}
 
 
 

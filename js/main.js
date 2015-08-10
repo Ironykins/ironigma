@@ -17,8 +17,7 @@ app.controller('enigma', ['$scope', function($scope) {
     }
 
     $scope.charEncrypt = function() { 
-        $scope.ciphertext += $scope.enigma.encrypt($scope.input);
-        $scope.input = "";
+        $scope.ciphertext += $scope.enigma.encrypt($scope.input.slice(-1));
     }
 
     //Steps a rotor up or down.
@@ -121,6 +120,26 @@ app.directive('rotorRingsettingFormatter', function() {
             });
             controller.$parsers.push(function(value) {
                 return value-1;
+            });
+        }
+    };
+});
+
+//Enigma output should be in groups of 4 for some reason!
+app.directive('enigmaOutputFormatter', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, controller) {
+            controller.$formatters.push(function(value) {
+                var newVal = "";
+                for(var i=0,vl=value.length;i<vl;i++) {
+                    newVal += value[i];
+                    if(i % 4 == 3) newVal += ' ';
+                }
+                return newVal;
+            });
+            controller.$parsers.push(function(value) {
+                return value;
             });
         }
     };

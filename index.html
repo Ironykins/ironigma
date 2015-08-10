@@ -30,8 +30,23 @@
                 <h1>Enigma Machine Emulator</h1>
                 <p>TODO: Hide this.<p/>
                 <p>Machine State: {{ enigma }}</p>
+                <h1>I/O:</h1>
+                <table>
+                    <tr>
+                        <td>Input</td>
+                        <td>Output</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea rows="6" cols="35" class="enigmaInput" type="text" ng-model="input" ng-change="charEncrypt()"></textarea>
+                        </td>
+                        <td>
+                            <textarea enigma-output-formatter rows="6" cols="35" class="enigmaOutput" readonly="true" type="text" ng-model="ciphertext"></textarea>
+                        </td>
+                    </tr>
+                </table>
                 <h1>Rotors:</h1>
-                <h3>Rotor Positions (Right to Left)</h3>
+                <h3>Rotor Positions</h3>
                 <table>
                     <tr>
                         <td ng-repeat="n in enigma.rotors track by $index">
@@ -44,7 +59,7 @@
                         </td>
                     </tr>
                 </table>
-                <h3>Ring Settings (Right to Left)</h3>
+                <h3>Ring Settings</h3>
                 <table>
                     <tr>
                         <td ng-repeat="n in enigma.rotors track by $index">
@@ -59,21 +74,6 @@
                 </table>
                 <button ng-click="step()">Step Rotors</button>
                 <button ng-click="reset()">Reset</button>
-                <h1>I/O:</h1>
-                <table>
-                    <tr>
-                        <td>Input</td>
-                        <td>Output</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" ng-model="input" ng-change="charEncrypt()"/>
-                        </td>
-                        <td>
-                            <p>{{ ciphertext }}</p>
-                        </td>
-                    </tr>
-                </table>
                 <h1>Plugboard</h1>
                 <table>
                     <tr>
@@ -90,7 +90,7 @@
                 <h1>Reflector</h1>
                 <select data-ng-options="o.name for o in reflectorList" data-ng-model="enigma.reflector">
                 </select>
-                <h1>Pick Rotors</h1>
+                <h1>Rotor Configuration</h1>
                 <table>
                     <tr>
                         <td ng-repeat="n in enigma.rotors track by $index">
