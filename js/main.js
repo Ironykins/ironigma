@@ -5,11 +5,14 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
     $scope.plaintext = "";
     $scope.ciphertext = "";
+    $scope.strInput = "";
+    $scope.charInput = "";
     $scope.plugboard = [];
     $scope.rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
     $scope.selectedRotors = [];
     $scope.reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
     $scope.oldInputLength = 0;
+    $scope.inputType = 'string';
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -24,6 +27,7 @@ app.controller('enigma', ['$scope', function($scope) {
      * in a paste action, or type stuff in the middle or at the start of the string.
      * This seems the only viable solution. */
     //TODO: Look for optimizations.
+    /*
     $scope.inputChanged = function() { 
         //Backstep it.
         for(var i=0,il=$scope.plaintext.length;i<il;i++)
@@ -37,6 +41,22 @@ app.controller('enigma', ['$scope', function($scope) {
                 $scope.ciphertext += $scope.enigma.encrypt($scope.input[i]);
             }
         }
+    }
+    */
+
+    $scope.encryptString = function() {
+        $scope.plaintext = "";
+        $scope.ciphertext = "";
+        for(var i=0,il=$scope.strinput.length;i<il;i++) {
+            if( /[a-zA-Z]/.test($scope.strinput[i]) ) {
+                $scope.plaintext += $scope.strinput[i];
+                $scope.ciphertext += $scope.enigma.encrypt($scope.strinput[i]);
+            }
+        }
+    }
+    
+    $scope.encryptChar = function() {
+        console.log("charEnc");
     }
 
     //Steps a rotor up or down.

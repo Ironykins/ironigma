@@ -75,6 +75,11 @@ Enigma.prototype.encrypt = function(character) { //Encrypts a character. Steps t
     
     return this.plugboardTransform(workingChar);
 }
+Enigma.prototype.encryptStr = function(string) { //Encrypts a string. 
+    var output = "";
+    for(var x in string) { output += this.encrypt(string[x]); }
+    return output;
+}
 Enigma.prototype.reset = function() { //Resets the machine.
     this.plugboard = [];
     for(var x=0;x<this.rotors.length;x++) {
