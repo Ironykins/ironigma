@@ -38,8 +38,15 @@
                         <td>Output</td>
                     </tr>
                     <tr>
-                        <td>
-                            <textarea rows="6" cols="35" class="enigmaInput" ng-model="input" ng-change="inputChanged()"></textarea>
+                        <td width="150px">
+                            <div ng-show="inputType=='string'">
+                                <textarea rows="6" cols="35" class="enigmaInput" ng-model="strinput"></textarea>
+                                <label> <input type="checkbox" ng-model="rotorResetOnEncrypt"/> Reset Rotors </label>
+                                <button ng-click="encryptString()">Encrypt</button>
+                            </div>
+                            <div ng-show="inputType=='char'">
+                                <input type="text" ng-model="charinput" ng-change="encryptChar()" ng-keydown="backspaceChar($event)"/>
+                            </div>
                         </td>
                         <td>
                             <textarea enigma-output-formatter rows="6" cols="35" readonly="true" ng-model="plaintext"></textarea>
@@ -49,6 +56,8 @@
                         </td>
                     </tr>
                 </table>
+                <label><input type="radio" ng-model="inputType" value="string">String</label>
+                <label><input type="radio" ng-model="inputType" value="char">Character</label>
                 <h1>Rotors:</h1>
                 <h3>Rotor Positions</h3>
                 <table>

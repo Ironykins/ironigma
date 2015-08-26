@@ -13,6 +13,7 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.reflectorList = [refBeta,refGamma,refA,refB,refC,refBThin,refCThin,ETW];
     $scope.oldInputLength = 0;
     $scope.inputType = 'string';
+    $scope.rotorResetOnEncrypt = true;
 
     $scope.step = function() { $scope.enigma.step() }
     $scope.reset = function() { 
@@ -21,30 +22,10 @@ app.controller('enigma', ['$scope', function($scope) {
         $scope.plugboard = []
     }
 
-    /* This sucks. We need to re-encrypt the whole string. Every time.
-     * There's no easy way to know if they delete a bunch of shit in the middle
-     * of the string, or add a bunch of irrelevant characters like commas a numerals
-     * in a paste action, or type stuff in the middle or at the start of the string.
-     * This seems the only viable solution. */
-    //TODO: Look for optimizations.
-    /*
-    $scope.inputChanged = function() { 
-        //Backstep it.
-        for(var i=0,il=$scope.plaintext.length;i<il;i++)
-            $scope.enigma.backstep();
-
-        $scope.plaintext = "";
-        $scope.ciphertext = "";
-        for(var i=0,il=$scope.input.length;i<il;i++) {
-            if( /[a-zA-Z]/.test($scope.input[i]) ) {
-                $scope.plaintext += $scope.input[i];
-                $scope.ciphertext += $scope.enigma.encrypt($scope.input[i]);
-            }
-        }
-    }
-    */
-
+    //Encrypts the string in $scope.strinput, using the current state of the machine.
     $scope.encryptString = function() {
+        if($scope.rotorResetOnEncrypt) $scope.reset();
+
         $scope.plaintext = "";
         $scope.ciphertext = "";
         for(var i=0,il=$scope.strinput.length;i<il;i++) {
@@ -55,9 +36,25 @@ app.controller('enigma', ['$scope', function($scope) {
         }
     }
     
+    //Encrypts the character entered into our char input window. 
     $scope.encryptChar = function() {
-        console.log("charEnc");
+        var candidateChar = $scope.charinput[0];
+        $scope.charinput = "";
+        if( /[a-zA-Z]/.test(candidateChar) ) {
+            $scope.plaintext += candidateChar
+            $scope.ciphertext += $scope.enigma.encrypt(candidateChar);
+        }
     }
+
+    //Backspace a character.
+    $scope.backspaceChar = function(event) {
+        if(event.keyCode === 8) {
+            $scope.plaintext = $scope.plaintext.slice(0, - 1);
+            $scope.ciphertext = $scope.ciphertext.slice(0, - 1);
+            $scope.enigma.backstep();
+        }
+    }
+
 
     //Steps a rotor up or down.
     $scope.stepRotor = function(rotor, up) {

@@ -100,7 +100,12 @@ QUnit.test("Non-letter characters are ignored.", function( assert ) {
     assert.equal(enc1, "");
     assert.equal(enc2, "");
     assert.equal(enc3, "");
-    assert.equal(this.enigma.rotors[0].position,0);
+    assert.equal(this.enigma.rotors[this.enigma.rotors.length-1].position,0);
+});
+QUnit.test("Encrypts strings correctly.", function( assert ) {
+    var enc1 = this.enigma.encryptStr("THECAKEISALIE");
+    assert.equal(enc1,"OPCBOOKBKTOXL");
+    assert.equal(this.enigma.rotors[this.enigma.rotors.length-1].position,13);
 });
 
 /*
