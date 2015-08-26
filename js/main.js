@@ -5,8 +5,8 @@ app.controller('enigma', ['$scope', function($scope) {
     $scope.enigma = new M3();
     $scope.plaintext = "";
     $scope.ciphertext = "";
-    $scope.strInput = "";
-    $scope.charInput = "";
+    $scope.strinput = "";
+    $scope.charinput = "";
     $scope.plugboard = [];
     $scope.rotorList = [rI,rII,rIII,rIV,rV,rVI,rVII,rVIII];
     $scope.selectedRotors = [];
@@ -46,6 +46,15 @@ app.controller('enigma', ['$scope', function($scope) {
         }
     }
 
+    //Clears the mahcine I/O
+    $scope.clearIO = function() {
+        $scope.plaintext = "";
+        $scope.ciphertext = "";
+        $scope.strinput = "";
+        $scope.charinput = "";
+        $scope.reset();
+    }
+
     //Backspace a character.
     $scope.backspaceChar = function(event) {
         if(event.keyCode === 8) {
@@ -54,7 +63,6 @@ app.controller('enigma', ['$scope', function($scope) {
             $scope.enigma.backstep();
         }
     }
-
 
     //Steps a rotor up or down.
     $scope.stepRotor = function(rotor, up) {

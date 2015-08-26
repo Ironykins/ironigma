@@ -33,6 +33,14 @@
                 <h1>I/O:</h1>
                 <table>
                     <tr>
+                        <td> <label><input type="radio" ng-model="inputType" value="string">Text Mode</label> </td>
+                        <td> <label><input type="radio" ng-model="inputType" value="char">Typing Mode</label> </td>
+                        <td> <button ng-click="clearIO()">Clear</button> </td>
+                    </tr>
+                </table>
+                <br/>
+                <table class="io">
+                    <tr>
                         <td>Input</td>
                         <td>Recognized Text</td>
                         <td>Output</td>
@@ -40,11 +48,12 @@
                     <tr>
                         <td width="150px">
                             <div ng-show="inputType=='string'">
-                                <textarea rows="6" cols="35" class="enigmaInput" ng-model="strinput"></textarea>
+                                <textarea rows="6" cols="35" class="enigmaInput" ng-model="strinput"></textarea><br/>
                                 <label> <input type="checkbox" ng-model="rotorResetOnEncrypt"/> Reset Rotors </label>
                                 <button ng-click="encryptString()">Encrypt</button>
                             </div>
                             <div ng-show="inputType=='char'">
+                                <p>Type your text below:</p>
                                 <input type="text" ng-model="charinput" ng-change="encryptChar()" ng-keydown="backspaceChar($event)"/>
                             </div>
                         </td>
@@ -56,8 +65,6 @@
                         </td>
                     </tr>
                 </table>
-                <label><input type="radio" ng-model="inputType" value="string">String</label>
-                <label><input type="radio" ng-model="inputType" value="char">Character</label>
                 <h1>Rotors:</h1>
                 <h3>Rotor Positions</h3>
                 <table>
