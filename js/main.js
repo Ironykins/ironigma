@@ -57,7 +57,7 @@ app.controller('enigma', ['$scope', function($scope) {
 
     //Backspace a character.
     $scope.backspaceChar = function(event) {
-        if(event.keyCode === 8) {
+        if(event.keyCode === 8 && $scope.plaintext.length > 0) {
             $scope.plaintext = $scope.plaintext.slice(0, - 1);
             $scope.ciphertext = $scope.ciphertext.slice(0, - 1);
             $scope.enigma.backstep();
