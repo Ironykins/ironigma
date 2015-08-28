@@ -95,14 +95,47 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+/* Colors:
+ * #19270d	
+   #25591f	
+   #818c3c	
+   #72601b	
+   #593a0e
+ */
+
 table, th, td {
-    border: 2px solid black;
+    border: 2px solid;
     padding: 5px;
     text-align:center;
 }
 
 textarea {
     font-family: courier;
+}
+
+body {
+    background: #593a0e;
+    color: #818c3c;
+   
+}
+
+.card {
+    border: 3px solid #19270d;
+    border-radius: 15px;
+    background: #25591f;
+    width: auto;
+    padding: 20px; 
+    margin: 5px;
+    height: auto;
+    float: left;
+    min-width: 250px;
+    max-width: 90%;
+    display: inline-block;
+}
+.card table, th, td {
+    border: none;
+    padding: 5px;
+    text-align:center;
 }
 
 .plugInput {
@@ -112,13 +145,13 @@ textarea {
 }
 
 .rotorInput {
-    border: 1px solid black;
+    border: 1px solid;
     width: 25px;
     text-align: center;
 }
 
 .enigmaInput {
-    border: 1px solid black;
+    border: 1px solid;
 }
 
 

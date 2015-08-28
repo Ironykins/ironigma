@@ -32,101 +32,108 @@
                 <p>Follow me on Github! <a href="http://github.com/ironykins">Click here!</a></p>
                 <!--<p>TODO: Hide this.<p/>-->
                 <!--<p>Machine State: {{ enigma }}</p>-->
+                
                 <h1>I/O:</h1>
-                <table>
-                    <tr>
-                        <td> <label><input type="radio" ng-model="inputType" value="string">Text Mode</label> </td>
-                        <td> <label><input type="radio" ng-model="inputType" value="char">Typing Mode</label> </td>
-                        <td> <button ng-click="clearIO()">Clear</button> </td>
-                    </tr>
-                </table>
+                <div class="card">
+                    <table>
+                        <tr>
+                            <td> <label><input type="radio" ng-model="inputType" value="string">Text Mode</label> </td>
+                            <td> <label><input type="radio" ng-model="inputType" value="char">Typing Mode</label> </td>
+                            <td> <button ng-click="clearIO()">Clear</button> </td>
+                        </tr>
+                    </table>
+                </div>
                 <br/>
-                <table class="io">
-                    <tr>
-                        <td>Input</td>
-                        <td>Recognized Text</td>
-                        <td>Output</td>
-                    </tr>
-                    <tr>
-                        <td width="150px">
-                            <div ng-show="inputType=='string'">
-                                <textarea rows="6" cols="35" class="enigmaInput" ng-model="strinput"></textarea><br/>
-                                <label> <input type="checkbox" ng-model="rotorResetOnEncrypt"/> Reset Rotors </label>
-                                <button ng-click="encryptString()">Encrypt</button>
-                            </div>
-                            <div ng-show="inputType=='char'">
-                                <p>Type your text below:</p>
-                                <input type="text" ng-model="charinput" ng-change="encryptChar()" ng-keydown="backspaceChar($event)"/>
-                            </div>
-                        </td>
-                        <td>
-                            <textarea enigma-output-formatter rows="6" cols="35" readonly="true" ng-model="plaintext"></textarea>
-                        </td>
-                        <td>
-                            <textarea enigma-output-formatter rows="6" cols="35" class="enigmaOutput" readonly="true" ng-model="ciphertext"></textarea>
-                        </td>
-                    </tr>
-                </table>
-                <h1>Rotors:</h1>
-                <h3>Rotor Positions</h3>
-                <table>
-                    <tr>
-                        <td ng-repeat="n in enigma.rotors track by $index">
-                            <table>
-                                <tr><td><b>Rotor {{n.name}}</b></td></tr>
-                                <tr><td><button ng-click="stepRotor(n,true)">^</button></td></tr>
-                                <tr><td><input class="rotorInput" onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
-                                <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <h3>Ring Settings</h3>
-                <table>
-                    <tr>
-                        <td ng-repeat="n in enigma.rotors track by $index">
-                            <table>
-                                <tr><td><b>Rotor {{n.name}}</b></td></tr>
-                                <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
-                                <tr><td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="1"/></td></tr>
-                                <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <button ng-click="step()">Step Rotors</button>
-                <button ng-click="reset()">Reset</button>
-                <h1>Plugboard</h1>
-                <table>
-                    <tr>
-                        <td ng-repeat="n in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' track by $index">
-                            <b>{{n}}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ng-repeat="n in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' track by $index">
-                            <input class="plugInput" type="text" ng-model="plugboard[n]" ng-change="plugboardInput(n)" maxlength="1"/>
-                        </td>
-                    </tr>
-                </table>
-                <h1>Reflector</h1>
-                <select data-ng-options="o.name for o in reflectorList" data-ng-model="enigma.reflector">
-                </select>
-                <h1>Rotor Configuration</h1>
-                <table>
-                    <tr>
-                        <td ng-repeat="n in enigma.rotors track by $index">
-                            <table>
-                                <tr><td><b>Rotor {{n.name}}</b></td></tr>
-                                <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></tr></td>
-                                <tr><td><button ng-click="removeRotor($index)">Delete</button></tr></td>
-                            </table>
-                        </td>
-                        <td>
-                            <button ng-click="addRotor()">Add Rotor</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="card">
+                    <b>Input</b>
+                    <div ng-show="inputType=='string'">
+                        <textarea rows="6" cols="35" class="enigmaInput" ng-model="strinput"></textarea><br/>
+                        <label> <input type="checkbox" ng-model="rotorResetOnEncrypt"/> Reset Rotors </label>
+                        <button ng-click="encryptString()">Encrypt</button>
+                    </div>
+                    <div ng-show="inputType=='char'">
+                        <p>Type your text below:</p>
+                        <input type="text" ng-model="charinput" ng-change="encryptChar()" ng-keydown="backspaceChar($event)"/>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <b>Recognized Text</b><br/>
+                    <textarea enigma-output-formatter rows="6" cols="35" readonly="true" ng-model="plaintext"></textarea>
+                </div>
+                <div class="card">
+                    <b>Output</b><br/>
+                    <textarea enigma-output-formatter rows="6" cols="35" class="enigmaOutput" readonly="true" ng-model="ciphertext"></textarea>
+                </div>
+                <div class="card">
+                    <h3>Rotor Positions</h3>
+                    <table>
+                        <tr>
+                            <td ng-repeat="n in enigma.rotors track by $index">
+                                <table>
+                                    <tr><td><b>Rotor {{n.name}}</b></td></tr>
+                                    <tr><td><button ng-click="stepRotor(n,true)">^</button></td></tr>
+                                    <tr><td><input class="rotorInput" onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
+                                    <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <button ng-click="step()">Step Rotors</button>
+                    <button ng-click="reset()">Reset</button>
+                </div>
+                <div class="card">
+                    <h3>Ring Settings</h3>
+                    <table>
+                        <tr>
+                            <td ng-repeat="n in enigma.rotors track by $index">
+                                <table>
+                                    <tr><td><b>Rotor {{n.name}}</b></td></tr>
+                                    <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
+                                    <tr><td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="1"/></td></tr>
+                                    <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h1>Plugboard</h1>
+                    <table>
+                        <tr>
+                            <td ng-repeat="n in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' track by $index">
+                                <b>{{n}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ng-repeat="n in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' track by $index">
+                                <input class="plugInput" type="text" ng-model="plugboard[n]" ng-change="plugboardInput(n)" maxlength="1"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h1>Reflector</h1>
+                    <select data-ng-options="o.name for o in reflectorList" data-ng-model="enigma.reflector">
+                    </select>
+                </div>
+                <div class="card">
+                    <h1>Rotor Configuration</h1>
+                    <table>
+                        <tr>
+                            <td ng-repeat="n in enigma.rotors track by $index">
+                                <table>
+                                    <tr><td><b>Rotor {{n.name}}</b></td></tr>
+                                    <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></tr></td>
+                                    <tr><td><button ng-click="removeRotor($index)">Delete</button></tr></td>
+                                </table>
+                            </td>
+                            <td>
+                                <button ng-click="addRotor()">Add Rotor</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             
         </div>
