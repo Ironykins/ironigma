@@ -111,12 +111,11 @@
                                     </div>
                                 </div>
                                 <table>
-                                    <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
-                                    <tr><td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="2"/></td></tr>
-                                    <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
-                                </table>
-                                <table>
-                                    <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></tr></td>
+                                    <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></td></tr>
+                                    <tr>
+                                        <td><button ng-click="stepRingsetting(n,false)"><</button></td>
+                                        <td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="2"/></td>
+                                        <td><button ng-click="stepRingsetting(n,true)">></button></td>
                                 </table>
                             </div>
                         </div>
