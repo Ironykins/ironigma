@@ -30,9 +30,9 @@
                     <h1>Ironigma - Enigma Machine Emulator</h1>
                 </div>
                     <div class="w3-row">
-                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-click="opentab='machine'">Operation</a>
-                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-click="opentab='config'">Configuration</a>
-                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-click="opentab='about'">About</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" href="#" ng-click="opentab='machine'">Operation</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" href="#" ng-click="opentab='config'">Configuration</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" href="#" ng-click="opentab='about'">About</a>
                     </div>
                 
                 <!-- ENIGMA MACHINE FRONT END -->
@@ -90,6 +90,7 @@
                                 <tr><td><input class="rotorInput" onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
                                 <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
                             </table>
+                            <input style="float:right;border:0px;color:gray;" class="rotorInput" readonly="true" rotor-ringsetting-formatter type="text" ng-model="n.ringsetting"/>
                         </div>
                     </div>
                 </div>
@@ -97,15 +98,26 @@
                 <!-- ENIGMA MACHINE CONFIGURATION -->
                 <div class="w3-container" id="machineConfig" ng-show="opentab=='config'">
                     <div class="w3-row">
-                        <div class="w3-card-4 w3-margin-8 w3-col l3">
-                            <div class="w3-container w3-dark-grey"><h3>Ring Settings</h3></div>
-                            <div class="w3-card-4 w3-margin-8" style="float:left;width:100px" ng-repeat="n in enigma.rotors track by $index">
-                                <div class="w3-center w3-padding-4 w3-dark-grey"><b>Rotor {{n.name}}</b></div>
-                                    <table>
-                                        <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
-                                        <tr><td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="1"/></td></tr>
-                                        <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
-                                    </table>
+                        <div class="w3-card-4 w3-margin-8 w3-col l5">
+                            <div class="w3-container w3-dark-grey">
+                                <div style="float:left;"><h3>Rotors</h3></div>
+                                <a class="w3-btn w3-black w3-text-white" href="#" ng-click="addRotor()" style="margin:10px 0;float:right;"> Add New</a>
+                            </div>
+                            <div class="w3-card-4 w3-margin-4" style="float:left;width:150px;" ng-repeat="n in enigma.rotors track by $index">
+                                <div class="w3-center w3-dark-grey">
+                                    <b>{{$index + 1}}. Rotor {{n.name}}</b>
+                                    <div style="float:right;" "w3-center">
+                                        <a href="#" ng-click="removeRotor($index)" class="w3-closebtn w3-large">×</a>
+                                    </div>
+                                </div>
+                                <table>
+                                    <tr><td><button ng-click="stepRingsetting(n,true)">^</button></td></tr>
+                                    <tr><td><input class="rotorInput" rotor-ringsetting-formatter onClick="this.focus();this.select();" type="text" ng-model="n.ringsetting" maxlength="2"/></td></tr>
+                                    <tr><td><button ng-click="stepRingsetting(n,false)">v</button></td></tr>
+                                </table>
+                                <table>
+                                    <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></tr></td>
+                                </table>
                             </div>
                         </div>
                         <div class="w3-card-4 w3-margin-8 w3-col l1">
@@ -124,20 +136,6 @@
                                     </td></tr>
                                 </table>
                             </div>
-                        </div>
-                        <div class="w3-card-4 w3-margin-8 w3-col l5">
-                            <div class="w3-container w3-dark-grey">
-                                <div style="float:left;"><h3>Rotors</h3></div>
-                                <a class="w3-btn w3-black w3-text-white" href="#" ng-click="addRotor()" style="margin:10px 0;float:right;"> Add New</a>
-                            </div>
-                            <div class="w3-card-4 w3-margin-4" style="float:left;width:100px;" ng-repeat="n in enigma.rotors track by $index">
-                                <div class="w3-center w3-padding-4 w3-dark-grey"><b>Rotor {{n.name}}</b></div>
-                                <table>
-                                    <tr><td><select data-ng-options="o.name for o in rotorList" data-ng-model="selectedRotors[$index]" ng-change="changeRotor($index)"></select></tr></td>
-                                    <tr><td><button ng-click="removeRotor($index)">Delete</button></tr></td>
-                                </table>
-                            </div>
-
                         </div>
                     </div>
                 </div>
