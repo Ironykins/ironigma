@@ -29,12 +29,14 @@
                 <div class="w3-container w3-dark-grey">
                     <h1>Ironigma - Enigma Machine Emulator</h1>
                 </div>
-                <div class="w3-container">
-                    <p> This is an enigma machine emulator! It currently emulates a standard M3 machine, but can be easily configured using the controls below to emulate any arbitrary enigma, provided that standard rotors and reflectors are used.  </p>
-                    <p>Follow me on Github! <a href="http://github.com/ironykins">Click here!</a></p>
-                </div>
+                    <div class="w3-row">
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-click="opentab='machine'">Operation</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-click="opentab='config'">Configuration</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-click="opentab='about'">About</a>
+                    </div>
                 
-                <div class="w3-container">
+                <!-- ENIGMA MACHINE FRONT END -->
+                <div class="w3-container" ng-show="opentab=='machine'">
                     <div class="w3-row">
                         <div class="w3-col m2 l2 w3-border">
                             <div class="w3-container w3-dark-grey"><h3>Input Type</h3></div>
@@ -87,8 +89,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="w3-container">
-                    <div class="w3-container w3-dark-grey"><h3>Machine Configuration</h3></div>
+
+                <!-- ENIGMA MACHINE CONFIGURATION -->
+                <div class="w3-container" id="machineConfig" ng-show="opentab=='config'">
                     <div class="w3-row">
                         <div class="w3-card-4 w3-margin-8 w3-col l3">
                             <div class="w3-container w3-dark-grey"><h3>Ring Settings</h3></div>
@@ -133,6 +136,11 @@
 
                         </div>
                     </div>
+                </div>
+
+                <div class="w3-container" ng-show="opentab=='about'">
+                    <p> This is an enigma machine emulator! It currently emulates a standard M3 machine, but can be easily configured using the controls below to emulate any arbitrary enigma, provided that standard rotors and reflectors are used.  </p>
+                    <p>Follow me on Github! <a href="http://github.com/ironykins">Click here!</a></p>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 var app = angular.module('ironigma', []);
 
 app.controller('enigma', ['$scope', function($scope) {
+    $scope.opentab = 'machine';
     $scope.enigma = new M3();
     $scope.plaintext = "";
     $scope.ciphertext = "";
