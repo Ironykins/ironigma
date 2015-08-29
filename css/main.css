@@ -113,12 +113,7 @@ textarea {
     font-family: courier;
 }
 
-body {
-    background: #593a0e;
-    color: #818c3c;
-   
-}
-
+/*
 .card {
     border: 3px solid #19270d;
     border-radius: 15px;
@@ -137,9 +132,9 @@ body {
     padding: 5px;
     text-align:center;
 }
+*/
 
 .plugInput {
-    border: none;
     width: 15px;
     text-align: center;
 }
