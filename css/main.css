@@ -117,26 +117,17 @@ textarea {
     box-sizing: border-box;
 }
 
-/*
-.card {
-    border: 3px solid #19270d;
-    border-radius: 15px;
-    background: #25591f;
-    width: auto;
-    padding: 20px; 
-    margin: 5px;
-    height: auto;
-    float: left;
-    min-width: 250px;
-    max-width: 90%;
-    display: inline-block;
+.activeTab {
+    font-weight: bold;
 }
-.card table, th, td {
-    border: none;
-    padding: 5px;
-    text-align:center;
+
+a.activeTab:before {
+    content: '[';
 }
-*/
+
+a.activeTab:after {
+    content: ']';
+}
 
 .plugInput {
     width: 15px;

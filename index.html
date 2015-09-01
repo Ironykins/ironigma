@@ -30,9 +30,9 @@
                     <h1>Ironigma - Enigma Machine Emulator</h1>
                 </div>
                     <div class="w3-row">
-                        <a class="w3-btn w3-dark-grey w3-third w3-center" href="#" ng-click="opentab='machine'">Operation</a>
-                        <a class="w3-btn w3-dark-grey w3-third w3-center" href="#" ng-click="opentab='config'">Configuration</a>
-                        <a class="w3-btn w3-dark-grey w3-third w3-center" href="#" ng-click="opentab='about'">About</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-class="{activeTab:(opentab=='machine')}" ng-click="opentab='machine'">Operation</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-class="{activeTab:(opentab=='config')}" ng-click="opentab='config'">Configuration</a>
+                        <a class="w3-btn w3-dark-grey w3-third w3-center" ng-class="{activeTab:(opentab=='about')}" ng-click="opentab='about'">About</a>
                     </div>
                 
                 <!-- ENIGMA MACHINE FRONT END -->
