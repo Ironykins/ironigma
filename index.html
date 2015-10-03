@@ -34,11 +34,10 @@
                         <a class="w3-btn w3-dark-grey w3-third w3-center" ng-class="{activeTab:(opentab=='config')}" ng-click="opentab='config'">Configuration</a>
                         <a class="w3-btn w3-dark-grey w3-third w3-center" ng-class="{activeTab:(opentab=='about')}" ng-click="opentab='about'">About</a>
                     </div>
-                
                 <!-- ENIGMA MACHINE FRONT END -->
-                <div ng-show="opentab=='machine'">
-                    <div class="w3-row">
-                        <div class="w3-col m2 l2 w3-border">
+                <div ng-show="opentab=='machine'" style="border-top:1px solid white">
+                    <div class="w3-row" style="height:350px;">
+                        <div class="w3-col m2 l2">
                             <div class="w3-container w3-dark-grey"><h3>Input Type</h3></div>
                             <ul class="w3-ul">
                                 <li><label><input type="radio" ng-model="inputType" value="string">Text Mode</label></li>
@@ -46,7 +45,7 @@
                                 <li><label><input type="checkbox" ng-model="rotorResetOnEncrypt"/>Reset Rotors</label></li>
                             </ul>
                         </div>
-                        <div class="w3-col m4 l4 w3-border">
+                        <div class="w3-col m4 l4">
                             <div class="w3-center">
                                 <div class="w3-container w3-dark-grey"><h3>Input</h3></div>
                                 <div ng-show="inputType=='string'" style="padding:8px">
@@ -60,7 +59,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w3-col m3 l3 w3-border">
+                        <div class="w3-col m3 l3">
                             <div class="w3-center">
                                 <div class="w3-container w3-dark-grey"><h3>Recognized Text</h3></div>
                                 <div style="padding:8px">
@@ -68,7 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w3-col m3 l3 w3-border">
+                        <div class="w3-col m3 l3">
                             <div class="w3-center">
                                 <div class="w3-container w3-dark-grey"><h3>Output</h3></div>
                                 <div style="padding:8px">
