@@ -84,7 +84,6 @@ Enigma.prototype.reset = function() { //Resets the machine.
     this.plugboard = [];
     for(var x=0;x<this.rotors.length;x++) {
         this.rotors[x].position = 0;
-        this.rotors[x].ringsetting = 0;
     }
 }
 Enigma.prototype.validate = function(character) { //Returns a sane character input from any character. Or an empty string.

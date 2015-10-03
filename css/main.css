@@ -144,6 +144,18 @@ a.activeTab:after {
     border: 1px solid;
 }
 
+.mainRotors{
+    width: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.mainRotors .item {
+    display: inline-block;
+    float: none;
+    width: 100px;
+}
 
 /*table.io {table-layout:fixed; width:65%;}[>Setting the table width is important!<]*/
 

@@ -83,14 +83,16 @@
                             <a class="w3-btn w3-black w3-text-white" ng-click="reset()" href="#" style="margin:10px;float:right;">Reset</a>
                             <a class="w3-btn w3-black w3-text-white" ng-click="step()" href="#" style="margin:10px 0;float:right;">Step</a>
                         </div>
-                        <div class="w3-card-4 w3-margin-8" style="float:left;width:100px" ng-repeat="n in enigma.rotors track by $index">
-                            <div class="w3-center w3-padding-4 w3-dark-grey"><b>Rotor {{n.name}}</b></div>
-                            <table>
-                                <tr><td><button ng-click="stepRotor(n,true)">^</button></td></tr>
-                                <tr><td><input class="rotorInput" onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
-                                <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
-                            </table>
-                            <input style="float:right;border:0px;color:gray;" class="rotorInput" readonly="true" rotor-ringsetting-formatter type="text" ng-model="n.ringsetting"/>
+                        <div class="mainRotors">
+                            <div class="w3-card-4 w3-margin-8 item" ng-repeat="n in enigma.rotors track by $index">
+                                <div class="w3-center w3-padding-4 w3-dark-grey"><b>Rotor {{n.name}}</b></div>
+                                <table>
+                                    <tr><td><button ng-click="stepRotor(n,true)">^</button></td></tr>
+                                    <tr><td><input class="rotorInput" onClick="this.focus();this.select();" rotor-pos-formatter type="text" ng-model="n.position" maxlength="1"/></td></tr>
+                                    <tr><td><button ng-click="stepRotor(n,false)">v</button></td></tr>
+                                </table>
+                                <input style="float:right;border:0px;color:gray;" class="rotorInput" readonly="true" rotor-ringsetting-formatter type="text" ng-model="n.ringsetting"/>
+                            </div>
                         </div>
                     </div>
                 </div>
