@@ -37,8 +37,8 @@
                 <!-- ENIGMA MACHINE FRONT END -->
                 <div ng-show="opentab=='machine'" style="border-top:1px solid white">
                     <div class="w3-row" style="height:350px;">
-                        <div class="w3-col m2 l2">
-                            <div class="w3-container w3-dark-grey"><h3>Input Type</h3></div>
+                        <div class="w3-col m2 l1">
+                            <div class="w3-container w3-dark-grey" style="overflow-x:hidden;overflow-y:hidden;white-space:nowrap;"><h3>Input Type</h3></div>
                             <ul class="w3-ul">
                                 <li><label><input type="radio" ng-model="inputType" value="string">Text Mode</label></li>
                                 <li><label><input type="radio" ng-model="inputType" value="char">Typing Mode</label></li>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="w3-col m4 l4">
                             <div class="w3-center">
-                                <div class="w3-container w3-dark-grey"><h3>Input</h3></div>
+                                <div class="w3-container w3-dark-grey" style="overflow-x:hidden;overflow-y:hidden;white-space:nowrap;"><h3>Input</h3></div>
                                 <div ng-show="inputType=='string'" style="padding:8px">
                                     <textarea class="enigmaInput" rows="8" ng-model="strinput"></textarea><br/>
                                     <button ng-click="clearIO()">Clear</button>
@@ -59,20 +59,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w3-col m3 l3">
+                        <div class="w3-col m2 l3">
                             <div class="w3-center">
-                                <div class="w3-container w3-dark-grey"><h3>Recognized Text</h3></div>
+                                <div class="w3-container w3-dark-grey" style="overflow-x:hidden;overflow-y:hidden;white-space:nowrap;"><h3>Recognized Text</h3></div>
                                 <div style="padding:8px">
                                     <textarea enigma-output-formatter rows="8" readonly="true" ng-model="plaintext"></textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="w3-col m3 l3">
+                        <div class="w3-col m4 l4">
                             <div class="w3-center">
-                                <div class="w3-container w3-dark-grey"><h3>Output</h3></div>
+                                <div class="w3-container w3-dark-grey" style="overflow-x:hidden;overflow-y:hidden;white-space:nowrap;"><h3>Output</h3></div>
                                 <div style="padding:8px">
                                     <textarea enigma-output-formatter rows="8" class="enigmaOutput" readonly="true" ng-model="ciphertext"></textarea>
                                 </div>
+                                <p>
+                                {{ciphertext}}
+                                </p>
                             </div>
                         </div>
                     </div>
