@@ -16,6 +16,7 @@ function Enigma(rotors, reflector, plugboard) {
     this.reflector = reflector;
     this.plugboard = plugboard;
 }
+
 Enigma.prototype.checkPlugboard = function() //Verify the plugboard configuration is valid
 {
     var totalArray = []; //Add letters to this.
